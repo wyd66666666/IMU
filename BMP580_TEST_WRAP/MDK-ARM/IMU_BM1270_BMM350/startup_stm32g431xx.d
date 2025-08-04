@@ -1,0 +1,1 @@
+imu_bm1270_bmm350\startup_stm32g431xx.o: startup_stm32g431xx.s
