@@ -27,7 +27,22 @@ Project File Date:  08/06/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'F:\code\keil5\keil5core\ARM\ARMCC\Bin'
 Build target 'IMU_BM1270_BMM350'
-"IMU_BM1270_BMM350\IMU_BM1270_BMM350.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+..\HARDWARE\CALIBRATION\sensor_calibration.h(286): warning:  #1-D: last line of file ends without a newline
+  #endif /* SENSOR_CALIBRATION_H */
+..\HARDWARE\EKF\fusion_filter.h(39): warning:  #1-D: last line of file ends without a newline
+  #endif /* FUSION_FILTER_H */
+../Core/Src/main.c(62): warning:  #47-D: incompatible redefinition of macro "GYRO_CALIB_SAMPLES"  (declared at line 25 of "..\HARDWARE\CALIBRATION\sensor_calibration.h")
+  #define GYRO_CALIB_SAMPLES 1500  // 增加陀螺仪校准样本�?
+../Core/Src/main.c(753): warning:  #1-D: last line of file ends without a newline
+  #endif /* USE_FULL_ASSERT */
+../Core/Src/main.c(79): warning:  #177-D: variable "send_to_anony"  was declared but never referenced
+  static uint8_t send_to_anony = 1;      // 是否发送到匿名上位�?
+../Core/Src/main.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=47068 RO-data=13680 RW-data=144 ZI-data=3064  
+FromELF: creating hex file...
+"IMU_BM1270_BMM350\IMU_BM1270_BMM350.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -49,7 +64,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE@6.1.0
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
