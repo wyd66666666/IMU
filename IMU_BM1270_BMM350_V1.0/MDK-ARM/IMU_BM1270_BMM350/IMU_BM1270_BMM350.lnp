@@ -38,6 +38,9 @@
 "imu_bm1270_bmm350\bmi270_bmm350.o"
 "imu_bm1270_bmm350\myiic.o"
 "imu_bm1270_bmm350\bmp580_i2c.o"
+"imu_bm1270_bmm350\sensor_calibration.o"
+"imu_bm1270_bmm350\ekf_fusion.o"
+"imu_bm1270_bmm350\fusion_filter.o"
 --library_type=microlib --strict --scatter "IMU_BM1270_BMM350\IMU_BM1270_BMM350.sct"
 --diag_suppress=L6200 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

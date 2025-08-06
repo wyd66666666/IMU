@@ -103,3 +103,5 @@ void bmm350_error_codes_print_result(const char api_name[], int8_t rslt);
 #endif
 
 #endif /* BMI270_BMM350_H */
+
+

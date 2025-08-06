@@ -26,11 +26,16 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
+#include <math.h>
 #include "usart_printf.h"
 #include "delay.h"
 
 #include "bmi270_bmm350.h"  // BMI270+BMM350库
 #include "bmp5_port.h"      // BMP580库
+
+#include "sensor_calibration.h"
+#include "fusion_filter.h"  // 使用互补滤波器替代EKF
+#include "anony_protocol.h" // 匿名上位机协议
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -40,8 +45,21 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#ifndef PI
+#define PI 3.14159265358979323846f
+#endif
 
+#define DEG_TO_RAD (PI / 180.0f)
+#define RAD_TO_DEG (180.0f / PI)
 
+// 低通滤波器系数 (0-1，越小滤波越强)
+#define ACCEL_FILTER 0.05f  // 加速度计滤波（强）
+#define GYRO_FILTER 0.2f    // 陀螺仪滤波（中强）
+#define MAG_FILTER 0.02f    // 磁力计滤波（很强）
+#define BARO_FILTER 0.01f   // 气压计滤波（很强）
+
+// 校准采样数
+#define GYRO_CALIB_SAMPLES 500  // 陀螺仪校准样本数
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -55,17 +73,77 @@
 uint8_t rx_buf[RX_BUF_SIZE];
 uint8_t tx_buf[TX_BUF_SIZE];
 volatile uint8_t tx_busy = 0; // 发送忙标志
+
+// 姿态解算相关变量
+static uint32_t last_update_time = 0;  // 上次更新时间
+static uint8_t send_to_anony = 1;      // 是否发送到匿名上位机
+
+// 滤波后的数据
+float accel_filtered[3] = {0};
+float gyro_filtered[3] = {0};
+float mag_filtered[3] = {0};
+float baro_alt_filtered = 0.0f;
+
+// 校准参数
+float gyro_bias[3] = {0};
+float calib_gyro_offset[3] = {0};
+float calib_accel_offset[3] = {0};
+float calib_accel_scale[3] = {1.0f, 1.0f, 1.0f};
+float calib_mag_offset[3] = {0};
+float sea_level_pressure = 101325.0f;
+float altitude_offset = 0.0f;
+
+// 传感器控制
+uint8_t use_magnetometer = 0;  // 默认不使用磁力计
+uint8_t calibration_done = 0;  // 是否进行过校准
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void perform_gyro_calibration(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//extern int IMU_INIT_GETDATA(void);
+
+/* 初始陀螺仪校准函数 */
+void perform_gyro_calibration(void)
+{
+    printf("Performing initial gyro calibration...\n");
+    
+    imu_data_t imu_data;
+    float gyro_sum[3] = {0};
+    
+    // LED指示校准开始
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+    
+    for (int i = 0; i < GYRO_CALIB_SAMPLES; i++) {
+        if (IMU_ReadData(&imu_data) == BMI2_OK) {
+            gyro_sum[0] += imu_data.gyr_x;
+            gyro_sum[1] += imu_data.gyr_y;
+            gyro_sum[2] += imu_data.gyr_z;
+        }
+        HAL_Delay(5);
+        
+        if (i % 100 == 0) {
+            printf("Gyro calibration: %d%%\n", i * 100 / GYRO_CALIB_SAMPLES);
+        }
+    }
+    
+    // 计算平均值作为陀螺仪零点偏移
+    gyro_bias[0] = gyro_sum[0] / GYRO_CALIB_SAMPLES;
+    gyro_bias[1] = gyro_sum[1] / GYRO_CALIB_SAMPLES;
+    gyro_bias[2] = gyro_sum[2] / GYRO_CALIB_SAMPLES;
+    
+    printf("Gyro bias: %.3f, %.3f, %.3f deg/s\n", 
+           gyro_bias[0], gyro_bias[1], gyro_bias[2]);
+    
+    // LED指示校准完成
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -74,9 +152,8 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-
   /* USER CODE BEGIN 1 */
-	#pragma import(__use_no_semihosting)
+  #pragma import(__use_no_semihosting)
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -101,52 +178,203 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-	// 启动串口DMA接收
+  // 启动串口DMA接收
   HAL_UART_Receive_DMA(&huart1, rx_buf, RX_BUF_SIZE);
 
-//  // 启动定时器中断
-//  HAL_TIM_Base_Start_IT(&htim1);
-  //启动串口中断	
-	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+  // 启动串口中断	
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
 
-	DWT_Delay_Init(); // 初始化DWT延时
-	usart_printf_init(&huart1);
+  DWT_Delay_Init(); // 初始化DWT延时
+  usart_printf_init(&huart1);
 	 
-//	  float temperature, pressure;
-//	  // 初始化BMP580
-//    int8_t bmp_status = BMP580_Init();
-//    if (bmp_status != BMP5_OK) {
-//        printf("BMP580 initialization failed!\n");
-//        // 错误处理
-//    }
+  printf("\n\n========================================\n");
+  printf("Multi-Sensor Fusion Program v1.2\n");
+  printf("I2C1 (PA15/PB7): BMI270 + BMM350\n");
+  printf("I2C2 (PC4/PA8): BMP580\n");
+  printf("========================================\n\n");
+    
+  /* 初始化BMI270 */
+  printf("Initializing BMI270 (I2C1)...\n");
+  int8_t imu_status = IMU_Init(1);
+  if (imu_status != BMI2_OK) {
+      printf("BMI270 initialization failed!\n");
+  } else {
+      printf("BMI270 initialization successful!\n");
+  }
+    
+  /* 初始化BMP580 */
+  printf("\nInitializing BMP580 (I2C2)...\n");
+  int8_t bmp_status = BMP580_Init();
+  if (bmp_status != BMP5_OK) {
+      printf("BMP580 initialization failed!\n");
+  } else {
+      printf("BMP580 initialization successful!\n");
+  }
+  
+  /* 校准检查和执行 */
+  printf("\n=== Calibration Check ===\n");
 
- printf("========================================\n");
-    printf("Dual Sensor Test Program\n");
-    printf("I2C1 (PA15/PB7): BMI270 + BMM350\n");
-    printf("I2C2 (PC4/PA8): BMP580\n");
-    printf("========================================\n\n");
-    
-    /* 初始化BMI270 */
-    printf("Initializing BMI270 (I2C1)...\n");
-    int8_t imu_status = IMU_Init(1);
-    if (imu_status != BMI2_OK) {
-        printf("BMI270 initialization failed!\n");
-    } else {
-        printf("BMI270 initialization successful!\n");
-    }
-    
-    /* 初始化BMP580 */
-    printf("\nInitializing BMP580 (I2C2)...\n");
-    int8_t bmp_status = BMP580_Init();
-    if (bmp_status != BMP5_OK) {
-        printf("BMP580 initialization failed!\n");
-    }
-    
-    printf("\n--- Starting Data Reading ---\n");
-    
-    /* 数据结构体 */
-    imu_data_t imu_data;
-    float temperature, pressure;
+  // 检查现有校准数据
+  if (sensor_has_valid_calibration()) {
+      printf("Valid calibration data found!\n");
+      sensor_get_calibration_status();
+      calibration_done = 1;
+      printf("Press CAL_KEY within 3 seconds to recalibrate...\n");
+  } else {
+      printf("No calibration data found.\n");
+      printf("Press CAL_KEY within 3 seconds to calibrate...\n");
+  }
+
+  // 等待按键检测
+  uint32_t calib_wait_start = HAL_GetTick();
+  uint8_t calib_key_pressed = 0;
+
+  while (HAL_GetTick() - calib_wait_start < 3000) {
+      if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+          HAL_Delay(20); // 防抖
+          if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+              calib_key_pressed = 1;
+              
+              // LED确认
+              HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+              HAL_Delay(300);
+              HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+              
+              // 等待按键释放
+              while(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET);
+              break;
+          }
+      }
+  }
+
+  // 执行校准流程
+  if (calib_key_pressed) {
+      printf("\n=== Starting Calibration ===\n");
+      
+      // 选择校准类型
+      uint8_t calib_type = 1; // 默认完整校准
+      
+      if (calibration_done) {
+          // 已有校准数据，提供选择
+          printf("1. Full calibration (all sensors)\n");
+          printf("2. Quick gyro calibration only\n");
+          printf("Press CAL_KEY again within 3s to select quick mode...\n");
+          
+          uint32_t select_start = HAL_GetTick();
+          while (HAL_GetTick() - select_start < 3000) {
+              if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+                  HAL_Delay(20);
+                  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+                      calib_type = 2; // 快速校准
+                      printf("Quick calibration selected!\n");
+                      
+                      // LED快闪确认
+                      for (int i = 0; i < 3; i++) {
+                          HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+                          HAL_Delay(100);
+                          HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+                          HAL_Delay(100);
+                      }
+                      
+                      while(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET);
+                      break;
+                  }
+              }
+          }
+      }
+      
+      // 执行校准
+      int calib_result = -1;
+      
+      if (calib_type == 2) {
+          printf("Starting quick gyro calibration...\n");
+          calib_result = sensor_quick_gyro_calibration();
+      } else {
+          printf("Starting full sensor calibration...\n");
+          calib_result = sensor_simple_calibration();
+      }
+      
+      // 处理校准结果
+      if (calib_result == 0) {
+          printf("\n*** Calibration SUCCESS! ***\n");
+          calibration_done = 1;
+          
+          // LED长亮表示成功
+          HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+          HAL_Delay(2000);
+          HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+          
+          // 显示校准结果
+          sensor_get_calibration_status();
+          
+      } else {
+          printf("\n*** Calibration FAILED! ***\n");
+          
+          // LED快闪表示失败
+          for (int i = 0; i < 5; i++) {
+              HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+              HAL_Delay(200);
+              HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+              HAL_Delay(200);
+          }
+      }
+      
+  } else {
+      // 没有按键，跳过校准
+      if (calibration_done) {
+          printf("Using existing calibration data.\n");
+      } else {
+          printf("No calibration performed. Using raw sensor data.\n");
+      }
+  }
+
+  /* 初始化互补滤波器 */
+  printf("\n=== Initializing Sensor Fusion ===\n");
+  fusion_init();
+
+  // 设置融合滤波器参数 - 调整这些参数以优化性能
+  // 陀螺仪权重0.98, 加速度权重0.02, 磁力计权重0.01
+  fusion_set_params(0.98f, 0.02f, 0.01f);  
+  printf("Fusion parameters set: gyro=0.98, accel=0.02, mag=0.01\n");
+
+  // 进行初始陀螺仪校准
+  perform_gyro_calibration();
+
+  // 设置陀螺仪偏差
+  fusion_set_gyro_bias(gyro_bias);
+
+  // 默认不使用磁力计，因为磁力计容易受干扰
+  fusion_use_magnetometer(0);
+
+  printf("\n--- Starting Sensor Fusion ---\n");
+  printf("Keep device stationary for 3 seconds to initialize...\n");
+
+  // 静止初始化阶段
+  HAL_Delay(3000);
+  
+  // 加载校准参数
+  if (calibration_done) {
+      calib_get_gyro_offset(calib_gyro_offset);
+      calib_get_accel_offset(calib_accel_offset);
+      calib_get_accel_scale(calib_accel_scale);
+      calib_get_mag_offset(calib_mag_offset);
+      sea_level_pressure = calib_get_sea_level_pressure();
+      altitude_offset = calib_get_altitude_offset();
+      
+      printf("Calibration data loaded\n");
+  }
+  
+  printf("System ready! Press KEY to toggle magnetometer.\n\n");
+
+  /* 数据结构体 */
+  imu_data_t imu_data;
+  float temperature = 25.0f;
+  float pressure = 101325.0f;
+  
+  // 初始化滤波器变量
+  memset(accel_filtered, 0, sizeof(accel_filtered));
+  memset(gyro_filtered, 0, sizeof(gyro_filtered));
+  memset(mag_filtered, 0, sizeof(mag_filtered));
 
   /* USER CODE END 2 */
 
@@ -157,40 +385,178 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	
-//    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_6,GPIO_PIN_SET);
-//    delay_ms(50);
-//    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_6,GPIO_PIN_RESET);
-//    delay_ms(50);
-//		IMU_INIT_GETDATA();
-		 // 读取BMP580数据
-//        if (BMP580_ReadData(&temperature, &pressure) == BMP5_OK) {
-//            printf("BMP580 -> Temp: %.2f C, Press: %.2f hPa\n", temperature, pressure / 100.0f);
-//        } else {
-//            printf("BMP580 -> Read failed\n");
-//        }
-		 /* 读取BMI270数据 */
-        if (IMU_ReadData(&imu_data) == BMI2_OK) {
-            printf("BMI270 -> Acc(m/s²): [%.2f, %.2f, %.2f], Gyr(°/s): [%.2f, %.2f, %.2f], Mag(uT): [%.2f, %.2f, %.2f]\n",
-                   imu_data.acc_x, imu_data.acc_y, imu_data.acc_z,
-                   imu_data.gyr_x, imu_data.gyr_y, imu_data.gyr_z,
-                   imu_data.mag_x, imu_data.mag_y, imu_data.mag_z);
-        } else {
-            printf("BMI270 -> Read failed\n");
-        }
+    
+    // 计算时间间隔
+    uint32_t current_time = HAL_GetTick();
+    float dt = (current_time - last_update_time) / 1000.0f;  // 转换为秒
+    
+    // 限制dt范围，防止大跳变
+    if (last_update_time == 0 || dt > 0.1f || dt < 0.001f) {
+        dt = 0.02f;  // 默认20ms
+    }
+    last_update_time = current_time;
+    
+    /* 读取传感器数据 */
+    if (IMU_ReadData(&imu_data) == BMI2_OK) {
         
-        /* 读取BMP580数据 */
+        // 读取BMP580气压计数据（如果可用）
+        float baro_altitude = 0.0f;
         if (BMP580_ReadData(&temperature, &pressure) == BMP5_OK) {
-            printf("BMP580 -> Temp: %.2f C, Press: %.2f hPa\n", temperature, pressure / 100.0f);
-        } else {
-            printf("BMP580 -> Read failed\n");
+            // 计算高度
+            baro_altitude = 44330.0f * (1.0f - powf(pressure / 101325.0f, 1.0f/5.255f));
+            
+            // 应用滤波
+            if (baro_alt_filtered == 0.0f) {
+                baro_alt_filtered = baro_altitude;
+            } else {
+                baro_alt_filtered = baro_alt_filtered * (1.0f - BARO_FILTER) + baro_altitude * BARO_FILTER;
+            }
         }
         
-        printf("----------------------------------------\n");
+        /* 应用校准和滤波 */
         
-        HAL_Delay(500); // 500ms延时
-
-	}
+        // 0. 应用陀螺仪零偏校正（从初始化阶段获得的）
+        imu_data.gyr_x -= gyro_bias[0];
+        imu_data.gyr_y -= gyro_bias[1];
+        imu_data.gyr_z -= gyro_bias[2];
+        
+        // 1. 应用额外校准参数（如果有）
+        if (calibration_done) {
+            // 应用额外的陀螺仪校准
+            imu_data.gyr_x -= calib_gyro_offset[0];
+            imu_data.gyr_y -= calib_gyro_offset[1];
+            imu_data.gyr_z -= calib_gyro_offset[2];
+            
+            // 应用加速度计校准
+            imu_data.acc_x = (imu_data.acc_x - calib_accel_offset[0]) * calib_accel_scale[0];
+            imu_data.acc_y = (imu_data.acc_y - calib_accel_offset[1]) * calib_accel_scale[1];
+            imu_data.acc_z = (imu_data.acc_z - calib_accel_offset[2]) * calib_accel_scale[2];
+            
+            // 应用磁力计校准
+            imu_data.mag_x -= calib_mag_offset[0];
+            imu_data.mag_y -= calib_mag_offset[1];
+            imu_data.mag_z -= calib_mag_offset[2];
+        }
+        
+        // 2. 初始化滤波器（只在第一次运行时）
+        static uint8_t first_run = 1;
+        if (first_run) {
+            accel_filtered[0] = imu_data.acc_x;
+            accel_filtered[1] = imu_data.acc_y;
+            accel_filtered[2] = imu_data.acc_z;
+            
+            gyro_filtered[0] = imu_data.gyr_x;
+            gyro_filtered[1] = imu_data.gyr_y;
+            gyro_filtered[2] = imu_data.gyr_z;
+            
+            mag_filtered[0] = imu_data.mag_x;
+            mag_filtered[1] = imu_data.mag_y;
+            mag_filtered[2] = imu_data.mag_z;
+            
+            first_run = 0;
+        }
+        
+        // 3. 应用低通滤波
+        accel_filtered[0] = accel_filtered[0] * (1.0f - ACCEL_FILTER) + imu_data.acc_x * ACCEL_FILTER;
+        accel_filtered[1] = accel_filtered[1] * (1.0f - ACCEL_FILTER) + imu_data.acc_y * ACCEL_FILTER;
+        accel_filtered[2] = accel_filtered[2] * (1.0f - ACCEL_FILTER) + imu_data.acc_z * ACCEL_FILTER;
+        
+        gyro_filtered[0] = gyro_filtered[0] * (1.0f - GYRO_FILTER) + imu_data.gyr_x * GYRO_FILTER;
+        gyro_filtered[1] = gyro_filtered[1] * (1.0f - GYRO_FILTER) + imu_data.gyr_y * GYRO_FILTER;
+        gyro_filtered[2] = gyro_filtered[2] * (1.0f - GYRO_FILTER) + imu_data.gyr_z * GYRO_FILTER;
+        
+        mag_filtered[0] = mag_filtered[0] * (1.0f - MAG_FILTER) + imu_data.mag_x * MAG_FILTER;
+        mag_filtered[1] = mag_filtered[1] * (1.0f - MAG_FILTER) + imu_data.mag_y * MAG_FILTER;
+        mag_filtered[2] = mag_filtered[2] * (1.0f - MAG_FILTER) + imu_data.mag_z * MAG_FILTER;
+        
+        /* 更新互补滤波器姿态估计 */
+        
+        // 准备传感器数据
+        float acc[3] = {accel_filtered[0], accel_filtered[1], accel_filtered[2]};
+        float gyro[3] = {gyro_filtered[0], gyro_filtered[1], gyro_filtered[2]};
+        float mag[3] = {0, 0, 0};
+        
+        if (use_magnetometer) {
+            mag[0] = mag_filtered[0];
+            mag[1] = mag_filtered[1];
+            mag[2] = mag_filtered[2];
+        }
+        
+        // 更新融合滤波器
+        fusion_update(acc, gyro, use_magnetometer ? mag : NULL, baro_alt_filtered, dt);
+        
+        // 获取融合后的姿态
+        attitude_data_t attitude = fusion_get_attitude();
+        
+        // 发送姿态角到匿名上位机（10Hz）
+        static uint8_t send_count = 0;
+        if (++send_count >= 5) {  // 每100ms发送一次（10Hz）
+            send_count = 0;
+            
+            // 发送姿态数据
+            ANO_Send_Attitude(attitude.roll, attitude.pitch, attitude.yaw);
+            
+            // 可选：发送额外数据
+            ANO_Send_UserData(attitude.altitude, temperature, attitude.confidence * 100.0f,
+                              gyro_filtered[0], gyro_filtered[1]);
+        }
+        
+        // 串口打印（1Hz）
+        static uint32_t print_count = 0;
+        if (++print_count >= 50) {  // 每1秒打印一次
+            print_count = 0;
+            
+            printf("Att[R:%.1f P:%.1f Y:%.1f] Alt:%.1fm Conf:%.0f%% ", 
+                   attitude.roll, attitude.pitch, attitude.yaw, 
+                   attitude.altitude, attitude.confidence * 100.0f);
+            
+            printf("Gyr[%.2f %.2f %.2f] ", 
+                   gyro_filtered[0], gyro_filtered[1], gyro_filtered[2]);
+            
+            // 获取调试信息
+            printf("%s\n", fusion_get_debug_info());
+        }
+        
+        // 按键检测 - 切换磁力计使用状态
+        if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+            HAL_Delay(50); // 防抖
+            if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+                // 切换磁力计使用状态
+                use_magnetometer = !use_magnetometer;
+                fusion_use_magnetometer(use_magnetometer);
+                
+                printf("\n*** Magnetometer %s ***\n", 
+                       use_magnetometer ? "ENABLED" : "DISABLED");
+                
+                // LED指示
+                for (int i = 0; i < (use_magnetometer ? 2 : 4); i++) {
+                    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);
+                    HAL_Delay(100);
+                }
+                
+                // 等待按键释放
+                while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+                    HAL_Delay(10);
+                }
+            }
+        }
+        
+        // LED心跳指示
+        static uint32_t led_count = 0;
+        if (++led_count >= 25) {  // 每500ms闪烁一次
+            led_count = 0;
+            HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);
+        }
+    } else {
+        // 传感器读取失败
+        printf("ERROR: IMU read failed!\n");
+        HAL_Delay(100);
+    }
+    
+    // 主循环延时
+    //HAL_Delay(20);  // 20ms，50Hz主循环
+    
+  } /* while循环结束 */
   /* USER CODE END 3 */
 }
 
@@ -246,35 +612,9 @@ void UART1_IDLE_Callback(uint16_t len)
     if(len > 0)
     {
         HAL_UART_Transmit(&huart1, rx_buf, len, 100);
-				memset(rx_buf, 0, RX_BUF_SIZE); // 清空缓存
+        memset(rx_buf, 0, RX_BUF_SIZE); // 清空缓存
     }
 }
-
-/*
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-    if(huart->Instance == USART1)
-    {
-        tx_busy = 0;
-    }
-}
-*/
-/*
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-    if(htim->Instance == TIM1)
-    {		
-				
-        if(tx_busy == 0)
-        {
-            tx_busy = 1;
-					  strcpy((char*)tx_buf, "Timer DMA Send!\r\n");
-            HAL_UART_Transmit_DMA(&huart1, tx_buf, strlen((char*)tx_buf));
-        }
-    }
-}
-*/
-
 /* USER CODE END 4 */
 
 /**
@@ -291,7 +631,8 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-#ifdef USE_FULL_ASSERT
+
+#ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

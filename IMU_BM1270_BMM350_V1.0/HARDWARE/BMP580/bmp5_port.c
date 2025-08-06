@@ -110,3 +110,4 @@ int8_t BMP580_ReadData(float *temperature, float *pressure)
     
     return rslt;
 }
+

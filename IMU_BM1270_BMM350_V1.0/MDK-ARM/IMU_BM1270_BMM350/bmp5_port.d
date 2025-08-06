@@ -5,7 +5,7 @@ imu_bm1270_bmm350\bmp5_port.o: ..\HARDWARE\BMP580\bmp5_defs.h
 imu_bm1270_bmm350\bmp5_port.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\stdint.h
 imu_bm1270_bmm350\bmp5_port.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\stddef.h
 imu_bm1270_bmm350\bmp5_port.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\math.h
-imu_bm1270_bmm350\bmp5_port.o: ..\HARDWARE\IIC\bmp580_i2c.h
+imu_bm1270_bmm350\bmp5_port.o: ../HARDWARE/IIC/bmp580_i2c.h
 imu_bm1270_bmm350\bmp5_port.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h
 imu_bm1270_bmm350\bmp5_port.o: ../Core/Inc/stm32g4xx_hal_conf.h
 imu_bm1270_bmm350\bmp5_port.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h

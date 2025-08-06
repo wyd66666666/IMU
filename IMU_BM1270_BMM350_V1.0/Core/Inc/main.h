@@ -57,6 +57,8 @@ void UART1_IDLE_Callback(uint16_t len);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define KEY_Pin GPIO_PIN_13
+#define KEY_GPIO_Port GPIOC
 #define LED_Pin GPIO_PIN_6
 #define LED_GPIO_Port GPIOC
 

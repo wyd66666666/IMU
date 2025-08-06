@@ -214,3 +214,5 @@ uint8_t I2C2_Read_nByte(uint8_t SlaveAddress, uint8_t REG_Address, uint16_t len,
     I2C2_Stop();
     return 0;
 }
+
+

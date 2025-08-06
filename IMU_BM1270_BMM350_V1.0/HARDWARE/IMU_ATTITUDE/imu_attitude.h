@@ -4,6 +4,13 @@
 #include <math.h>
 #include <stdint.h>
 
+// --- 宏定义与全局变量 ---
+#ifndef PI
+#define PI 3.14159265358979323846f
+#endif
+
+#define DEG_TO_RAD (PI / 180.0f)
+#define RAD_TO_DEG (180.0f / PI)
 // 姿态角结构体
 typedef struct {
     float roll;    // 横滚角(度)

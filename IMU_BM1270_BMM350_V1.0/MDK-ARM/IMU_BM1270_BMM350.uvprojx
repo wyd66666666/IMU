@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32G431xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32G4xx/Include;../Drivers/CMSIS/Include;../HARDWARE/BMI270;../HARDWARE/BMM350;../HARDWARE/common;../HARDWARE/DELAY;../HARDWARE/PRINTF;../HARDWARE/ANONY_PROTOCOL;../HARDWARE/IMU_ATTITUDE;../HARDWARE/BMP580;..\HARDWARE\IIC</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32G4xx/Include;../Drivers/CMSIS/Include;../HARDWARE/BMI270;../HARDWARE/BMM350;../HARDWARE/common;../HARDWARE/DELAY;../HARDWARE/PRINTF;../HARDWARE/ANONY_PROTOCOL;../HARDWARE/IMU_ATTITUDE;../HARDWARE/BMP580;../HARDWARE/IIC;..\HARDWARE\CALIBRATION;..\HARDWARE\EKF</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -957,9 +957,19 @@
               <FilePath>..\HARDWARE\IIC\bmp580_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>bmi270_bmm350.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\HARDWARE\common\bmi270_bmm350.h</FilePath>
+              <FileName>sensor_calibration.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\CALIBRATION\sensor_calibration.c</FilePath>
+            </File>
+            <File>
+              <FileName>ekf_fusion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\EKF\ekf_fusion.c</FilePath>
+            </File>
+            <File>
+              <FileName>fusion_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\EKF\fusion_filter.c</FilePath>
             </File>
           </Files>
         </Group>

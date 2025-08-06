@@ -25,3 +25,5 @@ uint8_t I2C2_Write_nByte(uint8_t SlaveAddress, uint8_t REG_Address, uint16_t len
 uint8_t I2C2_Read_nByte(uint8_t SlaveAddress, uint8_t REG_Address, uint16_t len, uint8_t *buf);
 
 #endif /* BMP580_I2C_H */
+
+

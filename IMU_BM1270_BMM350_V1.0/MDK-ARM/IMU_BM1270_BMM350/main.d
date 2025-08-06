@@ -37,6 +37,7 @@ imu_bm1270_bmm350\main.o: ../Core/Inc/tim.h
 imu_bm1270_bmm350\main.o: ../Core/Inc/usart.h
 imu_bm1270_bmm350\main.o: ../Core/Inc/gpio.h
 imu_bm1270_bmm350\main.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\string.h
+imu_bm1270_bmm350\main.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\math.h
 imu_bm1270_bmm350\main.o: ../HARDWARE/PRINTF/usart_printf.h
 imu_bm1270_bmm350\main.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\stdio.h
 imu_bm1270_bmm350\main.o: ../HARDWARE/DELAY/delay.h
@@ -49,4 +50,7 @@ imu_bm1270_bmm350\main.o: ../HARDWARE/BMM350/bmm350_defs.h
 imu_bm1270_bmm350\main.o: ../HARDWARE/BMP580/bmp5_port.h
 imu_bm1270_bmm350\main.o: ../HARDWARE/BMP580/bmp5.h
 imu_bm1270_bmm350\main.o: ../HARDWARE/BMP580/bmp5_defs.h
-imu_bm1270_bmm350\main.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\math.h
+imu_bm1270_bmm350\main.o: ..\HARDWARE\CALIBRATION\sensor_calibration.h
+imu_bm1270_bmm350\main.o: F:\code\keil5\keil5core\ARM\ARMCC\Bin\..\include\stdbool.h
+imu_bm1270_bmm350\main.o: ..\HARDWARE\EKF\fusion_filter.h
+imu_bm1270_bmm350\main.o: ../HARDWARE/ANONY_PROTOCOL/anony_protocol.h

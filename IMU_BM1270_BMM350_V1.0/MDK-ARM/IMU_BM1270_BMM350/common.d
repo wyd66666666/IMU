@@ -39,4 +39,4 @@ imu_bm1270_bmm350\common.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_ti
 imu_bm1270_bmm350\common.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 imu_bm1270_bmm350\common.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 imu_bm1270_bmm350\common.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
-imu_bm1270_bmm350\common.o: ..\HARDWARE\IIC\myiic.h
+imu_bm1270_bmm350\common.o: ../HARDWARE/IIC/myiic.h
