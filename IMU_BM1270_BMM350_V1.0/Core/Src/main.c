@@ -53,8 +53,8 @@
 #define RAD_TO_DEG (180.0f / PI)
 
 // 低通滤波器系数 (0-1，越小滤波越强)
-#define ACCEL_FILTER 0.02f  // 加速度计滤波（很强）
-#define GYRO_FILTER 0.01f   // 陀螺仪滤波（强）
+#define ACCEL_FILTER 0.3f  // 加速度计滤波（很强）
+#define GYRO_FILTER 0.5f   // 陀螺仪滤波（强）
 #define MAG_FILTER 0.01f    // 磁力计滤波（非常强）
 #define BARO_FILTER 0.01f   // 气压计滤波（很强）
 
@@ -588,28 +588,28 @@ int main(void)
                              gyro_bias[1]);                  // Y轴陀螺仪偏差
         }
         
-        // 串口打印（1Hz）
-        static uint32_t print_count = 0;
-        if (++print_count >= 50) {  // 每1秒打印一次
-            print_count = 0;
-            
-            printf("Att[R:%5.1f P:%5.1f Y:%5.1f] ", 
-                   attitude.roll, attitude.pitch, attitude.yaw);
-            
-            printf("Gyr[%5.2f %5.2f %5.2f] ", 
-                   gyro_filtered[0], gyro_filtered[1], gyro_filtered[2]);
-            
-            printf("Bias[%5.2f %5.2f %5.2f] ", 
-                   gyro_bias[0], gyro_bias[1], gyro_bias[2]);
-            
-            if (use_magnetometer) {
-                printf("Mag[ON] ");
-            } else {
-                printf("Mag[OFF] ");
-            }
-            
-            printf("%s\n", fusion_get_debug_info());
-        }
+//        // 串口打印（1Hz）
+//        static uint32_t print_count = 0;
+//        if (++print_count >= 50) {  // 每1秒打印一次
+//            print_count = 0;
+//            
+//            printf("Att[R:%5.1f P:%5.1f Y:%5.1f] ", 
+//                   attitude.roll, attitude.pitch, attitude.yaw);
+//            
+//            printf("Gyr[%5.2f %5.2f %5.2f] ", 
+//                   gyro_filtered[0], gyro_filtered[1], gyro_filtered[2]);
+//            
+//            printf("Bias[%5.2f %5.2f %5.2f] ", 
+//                   gyro_bias[0], gyro_bias[1], gyro_bias[2]);
+//            
+//            if (use_magnetometer) {
+//                printf("Mag[ON] ");
+//            } else {
+//                printf("Mag[OFF] ");
+//            }
+//            
+//            printf("%s\n", fusion_get_debug_info());
+//        }
         
         // 按键检测 - 切换磁力计使用状态
         if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
@@ -653,11 +653,11 @@ int main(void)
                 gyro_error_count = 0;
             }
         }
-        HAL_Delay(10);
+        //HAL_Delay(10);
     }
     
     // 主循环延时 - 降低延时以获得更高的更新率
-    HAL_Delay(10);  // 10ms，100Hz主循环
+    //HAL_Delay(10);  // 10ms，100Hz主循环
     
   } /* while循环结束 */
   /* USER CODE END 3 */

@@ -74,7 +74,6 @@ Section Cross References
     main.o(i.main) refers to anony_protocol.o(i.ANO_Send_Attitude) for ANO_Send_Attitude
     main.o(i.main) refers to anony_protocol.o(i.ANO_Send_Sensor) for ANO_Send_Sensor
     main.o(i.main) refers to anony_protocol.o(i.ANO_Send_UserData) for ANO_Send_UserData
-    main.o(i.main) refers to fusion_filter.o(i.fusion_get_debug_info) for fusion_get_debug_info
     main.o(i.main) refers to stm32g4xx_hal_gpio.o(i.HAL_GPIO_TogglePin) for HAL_GPIO_TogglePin
     main.o(i.perform_gyro_calibration) refers to printfa.o(i.__0printf) for __2printf
     main.o(i.perform_gyro_calibration) refers to stm32g4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
@@ -2802,10 +2801,11 @@ Removing Unused input sections from the image.
     Removing ekf_fusion.o(i.vector_norm), (28 bytes).
     Removing ekf_fusion.o(.bss), (256 bytes).
     Removing ekf_fusion.o(.data), (52 bytes).
+    Removing fusion_filter.o(i.fusion_get_debug_info), (108 bytes).
     Removing dneg.o(.text), (6 bytes).
     Removing cdcmple.o(.text), (48 bytes).
 
-754 unused section(s) (total 67236 bytes) removed from the image.
+755 unused section(s) (total 67344 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2843,49 +2843,49 @@ Image Symbol Table
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
-    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  useno.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
     ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpcmp4.c               0x00000000   Number         0  fcmp4.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
-    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ../fplib/microlib/fpneg.c                0x00000000   Number         0  dneg.o ABSOLUTE
     ../fplib/microlib/fpscalb.c              0x00000000   Number         0  dscalb.o ABSOLUTE
@@ -2893,20 +2893,20 @@ Image Symbol Table
     ../fplib/microlib/fpstat.c               0x00000000   Number         0  fpstat.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf_x.o ABSOLUTE
-    ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f.o ABSOLUTE
     ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f_x.o ABSOLUTE
+    ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f.o ABSOLUTE
     ../mathlib/dunder.c                      0x00000000   Number         0  dunder.o ABSOLUTE
     ../mathlib/fabs.c                        0x00000000   Number         0  fabs.o ABSOLUTE
-    ../mathlib/fmax.c                        0x00000000   Number         0  fmaxf.o ABSOLUTE
     ../mathlib/fmax.c                        0x00000000   Number         0  fminf.o ABSOLUTE
+    ../mathlib/fmax.c                        0x00000000   Number         0  fmaxf.o ABSOLUTE
     ../mathlib/fpclassify.c                  0x00000000   Number         0  fpclassify.o ABSOLUTE
     ../mathlib/fpclassifyf.c                 0x00000000   Number         0  fpclassifyf.o ABSOLUTE
     ../mathlib/funder.c                      0x00000000   Number         0  funder.o ABSOLUTE
     ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
     ../mathlib/pow.c                         0x00000000   Number         0  pow_x.o ABSOLUTE
     ../mathlib/pow.c                         0x00000000   Number         0  pow.o ABSOLUTE
-    ../mathlib/powf.c                        0x00000000   Number         0  powf.o ABSOLUTE
     ../mathlib/powf.c                        0x00000000   Number         0  powf_x.o ABSOLUTE
+    ../mathlib/powf.c                        0x00000000   Number         0  powf.o ABSOLUTE
     ../mathlib/qnan.c                        0x00000000   Number         0  qnan.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
@@ -3290,182 +3290,180 @@ Image Symbol Table
     fix_sign                                 0x080086e3   Thumb Code    66  bmm350.o(i.fix_sign)
     i.fputc                                  0x08008724   Section        0  usart_printf.o(i.fputc)
     i.fusion_get_attitude                    0x080087a4   Section        0  fusion_filter.o(i.fusion_get_attitude)
-    i.fusion_get_debug_info                  0x080087b0   Section        0  fusion_filter.o(i.fusion_get_debug_info)
-    i.fusion_init                            0x0800881c   Section        0  fusion_filter.o(i.fusion_init)
-    i.fusion_set_gyro_bias                   0x080088a0   Section        0  fusion_filter.o(i.fusion_set_gyro_bias)
-    i.fusion_set_params                      0x080088bc   Section        0  fusion_filter.o(i.fusion_set_params)
-    i.fusion_update                          0x080088f8   Section        0  fusion_filter.o(i.fusion_update)
-    i.fusion_use_magnetometer                0x08008b88   Section        0  fusion_filter.o(i.fusion_use_magnetometer)
-    i.get_acc_gyr_data                       0x08008bc8   Section        0  bmi2.o(i.get_acc_gyr_data)
-    get_acc_gyr_data                         0x08008bc9   Thumb Code    32  bmi2.o(i.get_acc_gyr_data)
-    i.get_accel_config                       0x08008be8   Section        0  bmi2.o(i.get_accel_config)
-    get_accel_config                         0x08008be9   Thumb Code    78  bmi2.o(i.get_accel_config)
-    i.get_aux_interface_config               0x08008c36   Section        0  bmi2.o(i.get_aux_interface_config)
-    get_aux_interface_config                 0x08008c37   Thumb Code    90  bmi2.o(i.get_aux_interface_config)
-    i.get_gyro_config                        0x08008c90   Section        0  bmi2.o(i.get_gyro_config)
-    get_gyro_config                          0x08008c91   Thumb Code    94  bmi2.o(i.get_gyro_config)
-    i.get_gyro_cross_sense                   0x08008cee   Section        0  bmi2.o(i.get_gyro_cross_sense)
-    get_gyro_cross_sense                     0x08008cef   Thumb Code   114  bmi2.o(i.get_gyro_cross_sense)
-    i.get_gyro_gain_update_config            0x08008d60   Section        0  bmi2.o(i.get_gyro_gain_update_config)
-    get_gyro_gain_update_config              0x08008d61   Thumb Code   138  bmi2.o(i.get_gyro_gain_update_config)
-    i.get_gyro_gain_update_status            0x08008dea   Section        0  bmi2.o(i.get_gyro_gain_update_status)
-    get_gyro_gain_update_status              0x08008deb   Thumb Code   104  bmi2.o(i.get_gyro_gain_update_status)
-    i.get_nvm_status                         0x08008e52   Section        0  bmp5.o(i.get_nvm_status)
-    get_nvm_status                           0x08008e53   Thumb Code    20  bmp5.o(i.get_nvm_status)
-    i.get_remapped_data                      0x08008e66   Section        0  bmi2.o(i.get_remapped_data)
-    get_remapped_data                        0x08008e67   Thumb Code    86  bmi2.o(i.get_remapped_data)
-    i.invSqrt                                0x08008ebc   Section        0  fusion_filter.o(i.invSqrt)
-    invSqrt                                  0x08008ebd   Thumb Code    56  fusion_filter.o(i.invSqrt)
-    i.load_simple_calib_data                 0x08008ef8   Section        0  sensor_calibration.o(i.load_simple_calib_data)
-    load_simple_calib_data                   0x08008ef9   Thumb Code    38  sensor_calibration.o(i.load_simple_calib_data)
-    i.lsb_to_dps                             0x08008f28   Section        0  bmi270_bmm350.o(i.lsb_to_dps)
-    lsb_to_dps                               0x08008f29   Thumb Code    84  bmi270_bmm350.o(i.lsb_to_dps)
-    i.lsb_to_mps2                            0x08008f8c   Section        0  bmi270_bmm350.o(i.lsb_to_mps2)
-    lsb_to_mps2                              0x08008f8d   Thumb Code    92  bmi270_bmm350.o(i.lsb_to_mps2)
-    i.main                                   0x08008ffc   Section        0  main.o(i.main)
-    i.null_ptr_check                         0x08009f98   Section        0  bmi2.o(i.null_ptr_check)
-    null_ptr_check                           0x08009f99   Thumb Code    24  bmi2.o(i.null_ptr_check)
-    i.null_ptr_check                         0x08009fb0   Section        0  bmi270.o(i.null_ptr_check)
-    null_ptr_check                           0x08009fb1   Thumb Code    24  bmi270.o(i.null_ptr_check)
-    i.null_ptr_check                         0x08009fc8   Section        0  bmm350.o(i.null_ptr_check)
-    null_ptr_check                           0x08009fc9   Thumb Code    24  bmm350.o(i.null_ptr_check)
-    i.null_ptr_check                         0x08009fe0   Section        0  bmp5.o(i.null_ptr_check)
-    null_ptr_check                           0x08009fe1   Thumb Code    24  bmp5.o(i.null_ptr_check)
-    i.perform_gyro_calibration               0x08009ff8   Section        0  main.o(i.perform_gyro_calibration)
-    i.read_aux_data                          0x0800a378   Section        0  bmi2.o(i.read_aux_data)
-    read_aux_data                            0x0800a379   Thumb Code   210  bmi2.o(i.read_aux_data)
-    i.read_otp_word                          0x0800a44a   Section        0  bmm350.o(i.read_otp_word)
-    read_otp_word                            0x0800a44b   Thumb Code   216  bmm350.o(i.read_otp_word)
-    i.read_out_raw_data                      0x0800a524   Section        0  bmm350.o(i.read_out_raw_data)
-    read_out_raw_data                        0x0800a525   Thumb Code   206  bmm350.o(i.read_out_raw_data)
-    i.save_simple_calib_data                 0x0800a604   Section        0  sensor_calibration.o(i.save_simple_calib_data)
-    save_simple_calib_data                   0x0800a605   Thumb Code    28  sensor_calibration.o(i.save_simple_calib_data)
-    i.select_sensor                          0x0800a650   Section        0  bmi2.o(i.select_sensor)
-    select_sensor                            0x0800a651   Thumb Code    76  bmi2.o(i.select_sensor)
-    i.sensor_disable                         0x0800a69c   Section        0  bmi2.o(i.sensor_disable)
-    sensor_disable                           0x0800a69d   Thumb Code   124  bmi2.o(i.sensor_disable)
-    i.sensor_enable                          0x0800a718   Section        0  bmi2.o(i.sensor_enable)
-    sensor_enable                            0x0800a719   Thumb Code   124  bmi2.o(i.sensor_enable)
-    i.sensor_get_calibration_status          0x0800a794   Section        0  sensor_calibration.o(i.sensor_get_calibration_status)
-    i.sensor_has_valid_calibration           0x0800a94c   Section        0  sensor_calibration.o(i.sensor_has_valid_calibration)
-    i.sensor_quick_gyro_calibration          0x0800a95c   Section        0  sensor_calibration.o(i.sensor_quick_gyro_calibration)
-    i.sensor_simple_calibration              0x0800ab0c   Section        0  sensor_calibration.o(i.sensor_simple_calibration)
-    i.set_accel_config                       0x0800b088   Section        0  bmi2.o(i.set_accel_config)
-    set_accel_config                         0x0800b089   Thumb Code   152  bmi2.o(i.set_accel_config)
-    i.set_aux_config                         0x0800b120   Section        0  bmi2.o(i.set_aux_config)
-    set_aux_config                           0x0800b121   Thumb Code   144  bmi2.o(i.set_aux_config)
-    i.set_config_load                        0x0800b1b0   Section        0  bmi2.o(i.set_config_load)
-    set_config_load                          0x0800b1b1   Thumb Code    54  bmi2.o(i.set_config_load)
-    i.set_deep_standby_mode                  0x0800b1e6   Section        0  bmp5.o(i.set_deep_standby_mode)
-    set_deep_standby_mode                    0x0800b1e7   Thumb Code   138  bmp5.o(i.set_deep_standby_mode)
-    i.set_gyro_config                        0x0800b270   Section        0  bmi2.o(i.set_gyro_config)
-    set_gyro_config                          0x0800b271   Thumb Code   172  bmi2.o(i.set_gyro_config)
-    i.set_gyro_user_gain_config              0x0800b31c   Section        0  bmi2.o(i.set_gyro_user_gain_config)
-    set_gyro_user_gain_config                0x0800b31d   Thumb Code   162  bmi2.o(i.set_gyro_user_gain_config)
-    i.set_if_aux_not_busy                    0x0800b3be   Section        0  bmi2.o(i.set_if_aux_not_busy)
-    set_if_aux_not_busy                      0x0800b3bf   Thumb Code    92  bmi2.o(i.set_if_aux_not_busy)
-    i.set_power_mode                         0x0800b41a   Section        0  bmp5.o(i.set_power_mode)
-    set_power_mode                           0x0800b41b   Thumb Code    52  bmp5.o(i.set_power_mode)
-    i.set_powermode                          0x0800b450   Section        0  bmm350.o(i.set_powermode)
-    set_powermode                            0x0800b451   Thumb Code   128  bmm350.o(i.set_powermode)
-    i.set_standby_mode                       0x0800b4d4   Section        0  bmp5.o(i.set_standby_mode)
-    set_standby_mode                         0x0800b4d5   Thumb Code    32  bmp5.o(i.set_standby_mode)
-    i.simple_crc32                           0x0800b4f4   Section        0  sensor_calibration.o(i.simple_crc32)
-    simple_crc32                             0x0800b4f5   Thumb Code    46  sensor_calibration.o(i.simple_crc32)
-    i.sqrt                                   0x0800b528   Section        0  sqrt.o(i.sqrt)
-    i.sqrtf                                  0x0800b596   Section        0  sqrtf.o(i.sqrtf)
-    i.uart_tx_start_dma                      0x0800b5d4   Section        0  usart_printf.o(i.uart_tx_start_dma)
-    uart_tx_start_dma                        0x0800b5d5   Thumb Code    64  usart_printf.o(i.uart_tx_start_dma)
-    i.update_default_coefiecents             0x0800b61c   Section        0  bmm350.o(i.update_default_coefiecents)
-    update_default_coefiecents               0x0800b61d   Thumb Code    30  bmm350.o(i.update_default_coefiecents)
-    i.update_mag_off_sens                    0x0800b648   Section        0  bmm350.o(i.update_mag_off_sens)
-    update_mag_off_sens                      0x0800b649   Thumb Code   574  bmm350.o(i.update_mag_off_sens)
-    i.upload_file                            0x0800b8a4   Section        0  bmi2.o(i.upload_file)
-    upload_file                              0x0800b8a5   Thumb Code    64  bmi2.o(i.upload_file)
-    i.usart_printf_init                      0x0800b8e4   Section        0  usart_printf.o(i.usart_printf_init)
-    i.write_config_file                      0x0800b8f8   Section        0  bmi2.o(i.write_config_file)
-    write_config_file                        0x0800b8f9   Thumb Code   186  bmi2.o(i.write_config_file)
-    .constdata                               0x0800b9b4   Section       24  main.o(.constdata)
-    .constdata                               0x0800b9cc   Section       24  stm32g4xx_hal_uart.o(.constdata)
-    .constdata                               0x0800b9e4   Section       16  stm32g4xx_hal_uart_ex.o(.constdata)
-    numerator                                0x0800b9e4   Data           8  stm32g4xx_hal_uart_ex.o(.constdata)
-    denominator                              0x0800b9ec   Data           8  stm32g4xx_hal_uart_ex.o(.constdata)
-    .constdata                               0x0800b9f4   Section       16  system_stm32g4xx.o(.constdata)
-    .constdata                               0x0800ba04   Section        8  system_stm32g4xx.o(.constdata)
-    .constdata                               0x0800ba0c   Section        6  bmi2.o(.constdata)
-    .constdata                               0x0800ba12   Section     8264  bmi270.o(.constdata)
-    .constdata                               0x0800da5c   Section       32  bmm350.o(.constdata)
-    .constdata                               0x0800da7c   Section      144  sensor_calibration.o(.constdata)
-    .constdata                               0x0800db10   Section      136  pow.o(.constdata)
-    bp                                       0x0800db10   Data          16  pow.o(.constdata)
-    dp_h                                     0x0800db20   Data          16  pow.o(.constdata)
-    dp_l                                     0x0800db30   Data          16  pow.o(.constdata)
-    L                                        0x0800db40   Data          48  pow.o(.constdata)
-    P                                        0x0800db70   Data          40  pow.o(.constdata)
-    .constdata                               0x0800db98   Section      320  powf.o(.constdata)
-    table                                    0x0800db98   Data         128  powf.o(.constdata)
-    powersof2to1over16top                    0x0800dc18   Data          64  powf.o(.constdata)
-    powersof2to1over16bot                    0x0800dc58   Data          64  powf.o(.constdata)
-    powersof2to1over16all                    0x0800dc98   Data          64  powf.o(.constdata)
-    .constdata                               0x0800dcd8   Section        8  qnan.o(.constdata)
-    .conststring                             0x0800dce0   Section     3773  common.o(.conststring)
-    .conststring                             0x0800eba0   Section      299  bmi270_bmm350.o(.conststring)
-    .conststring                             0x0800eccc   Section       94  sensor_calibration.o(.conststring)
-    .data                                    0x20000000   Section       52  main.o(.data)
+    i.fusion_init                            0x080087b0   Section        0  fusion_filter.o(i.fusion_init)
+    i.fusion_set_gyro_bias                   0x08008834   Section        0  fusion_filter.o(i.fusion_set_gyro_bias)
+    i.fusion_set_params                      0x08008850   Section        0  fusion_filter.o(i.fusion_set_params)
+    i.fusion_update                          0x0800888c   Section        0  fusion_filter.o(i.fusion_update)
+    i.fusion_use_magnetometer                0x08008b1c   Section        0  fusion_filter.o(i.fusion_use_magnetometer)
+    i.get_acc_gyr_data                       0x08008b5c   Section        0  bmi2.o(i.get_acc_gyr_data)
+    get_acc_gyr_data                         0x08008b5d   Thumb Code    32  bmi2.o(i.get_acc_gyr_data)
+    i.get_accel_config                       0x08008b7c   Section        0  bmi2.o(i.get_accel_config)
+    get_accel_config                         0x08008b7d   Thumb Code    78  bmi2.o(i.get_accel_config)
+    i.get_aux_interface_config               0x08008bca   Section        0  bmi2.o(i.get_aux_interface_config)
+    get_aux_interface_config                 0x08008bcb   Thumb Code    90  bmi2.o(i.get_aux_interface_config)
+    i.get_gyro_config                        0x08008c24   Section        0  bmi2.o(i.get_gyro_config)
+    get_gyro_config                          0x08008c25   Thumb Code    94  bmi2.o(i.get_gyro_config)
+    i.get_gyro_cross_sense                   0x08008c82   Section        0  bmi2.o(i.get_gyro_cross_sense)
+    get_gyro_cross_sense                     0x08008c83   Thumb Code   114  bmi2.o(i.get_gyro_cross_sense)
+    i.get_gyro_gain_update_config            0x08008cf4   Section        0  bmi2.o(i.get_gyro_gain_update_config)
+    get_gyro_gain_update_config              0x08008cf5   Thumb Code   138  bmi2.o(i.get_gyro_gain_update_config)
+    i.get_gyro_gain_update_status            0x08008d7e   Section        0  bmi2.o(i.get_gyro_gain_update_status)
+    get_gyro_gain_update_status              0x08008d7f   Thumb Code   104  bmi2.o(i.get_gyro_gain_update_status)
+    i.get_nvm_status                         0x08008de6   Section        0  bmp5.o(i.get_nvm_status)
+    get_nvm_status                           0x08008de7   Thumb Code    20  bmp5.o(i.get_nvm_status)
+    i.get_remapped_data                      0x08008dfa   Section        0  bmi2.o(i.get_remapped_data)
+    get_remapped_data                        0x08008dfb   Thumb Code    86  bmi2.o(i.get_remapped_data)
+    i.invSqrt                                0x08008e50   Section        0  fusion_filter.o(i.invSqrt)
+    invSqrt                                  0x08008e51   Thumb Code    56  fusion_filter.o(i.invSqrt)
+    i.load_simple_calib_data                 0x08008e8c   Section        0  sensor_calibration.o(i.load_simple_calib_data)
+    load_simple_calib_data                   0x08008e8d   Thumb Code    38  sensor_calibration.o(i.load_simple_calib_data)
+    i.lsb_to_dps                             0x08008ebc   Section        0  bmi270_bmm350.o(i.lsb_to_dps)
+    lsb_to_dps                               0x08008ebd   Thumb Code    84  bmi270_bmm350.o(i.lsb_to_dps)
+    i.lsb_to_mps2                            0x08008f20   Section        0  bmi270_bmm350.o(i.lsb_to_mps2)
+    lsb_to_mps2                              0x08008f21   Thumb Code    92  bmi270_bmm350.o(i.lsb_to_mps2)
+    i.main                                   0x08008f90   Section        0  main.o(i.main)
+    i.null_ptr_check                         0x08009e04   Section        0  bmi2.o(i.null_ptr_check)
+    null_ptr_check                           0x08009e05   Thumb Code    24  bmi2.o(i.null_ptr_check)
+    i.null_ptr_check                         0x08009e1c   Section        0  bmi270.o(i.null_ptr_check)
+    null_ptr_check                           0x08009e1d   Thumb Code    24  bmi270.o(i.null_ptr_check)
+    i.null_ptr_check                         0x08009e34   Section        0  bmm350.o(i.null_ptr_check)
+    null_ptr_check                           0x08009e35   Thumb Code    24  bmm350.o(i.null_ptr_check)
+    i.null_ptr_check                         0x08009e4c   Section        0  bmp5.o(i.null_ptr_check)
+    null_ptr_check                           0x08009e4d   Thumb Code    24  bmp5.o(i.null_ptr_check)
+    i.perform_gyro_calibration               0x08009e64   Section        0  main.o(i.perform_gyro_calibration)
+    i.read_aux_data                          0x0800a1e4   Section        0  bmi2.o(i.read_aux_data)
+    read_aux_data                            0x0800a1e5   Thumb Code   210  bmi2.o(i.read_aux_data)
+    i.read_otp_word                          0x0800a2b6   Section        0  bmm350.o(i.read_otp_word)
+    read_otp_word                            0x0800a2b7   Thumb Code   216  bmm350.o(i.read_otp_word)
+    i.read_out_raw_data                      0x0800a390   Section        0  bmm350.o(i.read_out_raw_data)
+    read_out_raw_data                        0x0800a391   Thumb Code   206  bmm350.o(i.read_out_raw_data)
+    i.save_simple_calib_data                 0x0800a470   Section        0  sensor_calibration.o(i.save_simple_calib_data)
+    save_simple_calib_data                   0x0800a471   Thumb Code    28  sensor_calibration.o(i.save_simple_calib_data)
+    i.select_sensor                          0x0800a4bc   Section        0  bmi2.o(i.select_sensor)
+    select_sensor                            0x0800a4bd   Thumb Code    76  bmi2.o(i.select_sensor)
+    i.sensor_disable                         0x0800a508   Section        0  bmi2.o(i.sensor_disable)
+    sensor_disable                           0x0800a509   Thumb Code   124  bmi2.o(i.sensor_disable)
+    i.sensor_enable                          0x0800a584   Section        0  bmi2.o(i.sensor_enable)
+    sensor_enable                            0x0800a585   Thumb Code   124  bmi2.o(i.sensor_enable)
+    i.sensor_get_calibration_status          0x0800a600   Section        0  sensor_calibration.o(i.sensor_get_calibration_status)
+    i.sensor_has_valid_calibration           0x0800a7b8   Section        0  sensor_calibration.o(i.sensor_has_valid_calibration)
+    i.sensor_quick_gyro_calibration          0x0800a7c8   Section        0  sensor_calibration.o(i.sensor_quick_gyro_calibration)
+    i.sensor_simple_calibration              0x0800a978   Section        0  sensor_calibration.o(i.sensor_simple_calibration)
+    i.set_accel_config                       0x0800aef4   Section        0  bmi2.o(i.set_accel_config)
+    set_accel_config                         0x0800aef5   Thumb Code   152  bmi2.o(i.set_accel_config)
+    i.set_aux_config                         0x0800af8c   Section        0  bmi2.o(i.set_aux_config)
+    set_aux_config                           0x0800af8d   Thumb Code   144  bmi2.o(i.set_aux_config)
+    i.set_config_load                        0x0800b01c   Section        0  bmi2.o(i.set_config_load)
+    set_config_load                          0x0800b01d   Thumb Code    54  bmi2.o(i.set_config_load)
+    i.set_deep_standby_mode                  0x0800b052   Section        0  bmp5.o(i.set_deep_standby_mode)
+    set_deep_standby_mode                    0x0800b053   Thumb Code   138  bmp5.o(i.set_deep_standby_mode)
+    i.set_gyro_config                        0x0800b0dc   Section        0  bmi2.o(i.set_gyro_config)
+    set_gyro_config                          0x0800b0dd   Thumb Code   172  bmi2.o(i.set_gyro_config)
+    i.set_gyro_user_gain_config              0x0800b188   Section        0  bmi2.o(i.set_gyro_user_gain_config)
+    set_gyro_user_gain_config                0x0800b189   Thumb Code   162  bmi2.o(i.set_gyro_user_gain_config)
+    i.set_if_aux_not_busy                    0x0800b22a   Section        0  bmi2.o(i.set_if_aux_not_busy)
+    set_if_aux_not_busy                      0x0800b22b   Thumb Code    92  bmi2.o(i.set_if_aux_not_busy)
+    i.set_power_mode                         0x0800b286   Section        0  bmp5.o(i.set_power_mode)
+    set_power_mode                           0x0800b287   Thumb Code    52  bmp5.o(i.set_power_mode)
+    i.set_powermode                          0x0800b2bc   Section        0  bmm350.o(i.set_powermode)
+    set_powermode                            0x0800b2bd   Thumb Code   128  bmm350.o(i.set_powermode)
+    i.set_standby_mode                       0x0800b340   Section        0  bmp5.o(i.set_standby_mode)
+    set_standby_mode                         0x0800b341   Thumb Code    32  bmp5.o(i.set_standby_mode)
+    i.simple_crc32                           0x0800b360   Section        0  sensor_calibration.o(i.simple_crc32)
+    simple_crc32                             0x0800b361   Thumb Code    46  sensor_calibration.o(i.simple_crc32)
+    i.sqrt                                   0x0800b394   Section        0  sqrt.o(i.sqrt)
+    i.sqrtf                                  0x0800b402   Section        0  sqrtf.o(i.sqrtf)
+    i.uart_tx_start_dma                      0x0800b440   Section        0  usart_printf.o(i.uart_tx_start_dma)
+    uart_tx_start_dma                        0x0800b441   Thumb Code    64  usart_printf.o(i.uart_tx_start_dma)
+    i.update_default_coefiecents             0x0800b488   Section        0  bmm350.o(i.update_default_coefiecents)
+    update_default_coefiecents               0x0800b489   Thumb Code    30  bmm350.o(i.update_default_coefiecents)
+    i.update_mag_off_sens                    0x0800b4b4   Section        0  bmm350.o(i.update_mag_off_sens)
+    update_mag_off_sens                      0x0800b4b5   Thumb Code   574  bmm350.o(i.update_mag_off_sens)
+    i.upload_file                            0x0800b710   Section        0  bmi2.o(i.upload_file)
+    upload_file                              0x0800b711   Thumb Code    64  bmi2.o(i.upload_file)
+    i.usart_printf_init                      0x0800b750   Section        0  usart_printf.o(i.usart_printf_init)
+    i.write_config_file                      0x0800b764   Section        0  bmi2.o(i.write_config_file)
+    write_config_file                        0x0800b765   Thumb Code   186  bmi2.o(i.write_config_file)
+    .constdata                               0x0800b820   Section       24  main.o(.constdata)
+    .constdata                               0x0800b838   Section       24  stm32g4xx_hal_uart.o(.constdata)
+    .constdata                               0x0800b850   Section       16  stm32g4xx_hal_uart_ex.o(.constdata)
+    numerator                                0x0800b850   Data           8  stm32g4xx_hal_uart_ex.o(.constdata)
+    denominator                              0x0800b858   Data           8  stm32g4xx_hal_uart_ex.o(.constdata)
+    .constdata                               0x0800b860   Section       16  system_stm32g4xx.o(.constdata)
+    .constdata                               0x0800b870   Section        8  system_stm32g4xx.o(.constdata)
+    .constdata                               0x0800b878   Section        6  bmi2.o(.constdata)
+    .constdata                               0x0800b87e   Section     8264  bmi270.o(.constdata)
+    .constdata                               0x0800d8c8   Section       32  bmm350.o(.constdata)
+    .constdata                               0x0800d8e8   Section      144  sensor_calibration.o(.constdata)
+    .constdata                               0x0800d978   Section      136  pow.o(.constdata)
+    bp                                       0x0800d978   Data          16  pow.o(.constdata)
+    dp_h                                     0x0800d988   Data          16  pow.o(.constdata)
+    dp_l                                     0x0800d998   Data          16  pow.o(.constdata)
+    L                                        0x0800d9a8   Data          48  pow.o(.constdata)
+    P                                        0x0800d9d8   Data          40  pow.o(.constdata)
+    .constdata                               0x0800da00   Section      320  powf.o(.constdata)
+    table                                    0x0800da00   Data         128  powf.o(.constdata)
+    powersof2to1over16top                    0x0800da80   Data          64  powf.o(.constdata)
+    powersof2to1over16bot                    0x0800dac0   Data          64  powf.o(.constdata)
+    powersof2to1over16all                    0x0800db00   Data          64  powf.o(.constdata)
+    .constdata                               0x0800db40   Section        8  qnan.o(.constdata)
+    .conststring                             0x0800db48   Section     3773  common.o(.conststring)
+    .conststring                             0x0800ea08   Section      299  bmi270_bmm350.o(.conststring)
+    .conststring                             0x0800eb34   Section       94  sensor_calibration.o(.conststring)
+    .data                                    0x20000000   Section       48  main.o(.data)
     first_run                                0x20000002   Data           1  main.o(.data)
     send_count                               0x20000003   Data           1  main.o(.data)
     last_update_time                         0x20000004   Data           4  main.o(.data)
-    print_count                              0x2000001c   Data           4  main.o(.data)
-    led_count                                0x20000020   Data           4  main.o(.data)
-    mag_error_count                          0x20000024   Data           4  main.o(.data)
-    .data                                    0x20000034   Section       12  stm32g4xx_hal.o(.data)
-    .data                                    0x20000040   Section        4  system_stm32g4xx.o(.data)
-    .data                                    0x20000044   Section       16  bmi270.o(.data)
-    .data                                    0x20000054   Section        4  common.o(.data)
-    dev_addr                                 0x20000054   Data           1  common.o(.data)
-    bus_inst                                 0x20000055   Data           1  common.o(.data)
-    intf_conf                                0x20000056   Data           2  common.o(.data)
-    .data                                    0x20000058   Section       12  usart_printf.o(.data)
-    tx_dma_busy                              0x20000058   Data           1  usart_printf.o(.data)
-    tx_head                                  0x2000005a   Data           2  usart_printf.o(.data)
-    tx_tail                                  0x2000005c   Data           2  usart_printf.o(.data)
-    tx_dma_len                               0x2000005e   Data           2  usart_printf.o(.data)
-    g_huart                                  0x20000060   Data           4  usart_printf.o(.data)
-    .data                                    0x20000064   Section        4  usart_printf.o(.data)
-    .data                                    0x20000068   Section        6  bmp5_port.o(.data)
-    bmp580_initialized                       0x20000068   Data           1  bmp5_port.o(.data)
-    dev_addr                                 0x20000069   Data           1  bmp5_port.o(.data)
-    osr_odr_cfg                              0x2000006a   Data           4  bmp5_port.o(.data)
-    .data                                    0x2000006e   Section        1  bmi270_bmm350.o(.data)
-    is_initialized                           0x2000006e   Data           1  bmi270_bmm350.o(.data)
-    .data                                    0x20000070   Section       28  fusion_filter.o(.data)
-    beta                                     0x20000070   Data           4  fusion_filter.o(.data)
-    use_mag                                  0x20000074   Data           4  fusion_filter.o(.data)
-    initialized                              0x20000078   Data           4  fusion_filter.o(.data)
-    q                                        0x2000007c   Data          16  fusion_filter.o(.data)
-    .data                                    0x2000008c   Section        4  errno.o(.data)
-    _errno                                   0x2000008c   Data           4  errno.o(.data)
-    .bss                                     0x20000090   Section      148  main.o(.bss)
-    .bss                                     0x20000124   Section      172  tim.o(.bss)
-    .bss                                     0x200001d0   Section      340  usart.o(.bss)
-    .bss                                     0x20000324   Section      512  usart_printf.o(.bss)
-    uart_tx_buf                              0x20000324   Data         512  usart_printf.o(.bss)
-    .bss                                     0x20000524   Section       24  bmp5_port.o(.bss)
-    bmp580_dev                               0x20000524   Data          24  bmp5_port.o(.bss)
-    .bss                                     0x20000540   Section      280  bmi270_bmm350.o(.bss)
-    bmm_dev                                  0x20000540   Data         172  bmi270_bmm350.o(.bss)
-    bmi_dev                                  0x200005f0   Data         104  bmi270_bmm350.o(.bss)
-    .bss                                     0x20000658   Section       92  sensor_calibration.o(.bss)
-    simple_calib_data                        0x20000658   Data          64  sensor_calibration.o(.bss)
-    g_devices                                0x20000698   Data          12  sensor_calibration.o(.bss)
-    g_config                                 0x200006a4   Data          16  sensor_calibration.o(.bss)
-    .bss                                     0x200006b4   Section      464  fusion_filter.o(.bss)
-    gyro_bias                                0x200006b4   Data          12  fusion_filter.o(.bss)
-    gyro_bias_learned                        0x200006c0   Data          12  fusion_filter.o(.bss)
-    current_attitude                         0x200006cc   Data          56  fusion_filter.o(.bss)
-    full_debug                               0x20000704   Data         256  fusion_filter.o(.bss)
-    debug_info                               0x20000804   Data         128  fusion_filter.o(.bss)
-    STACK                                    0x20000888   Section     1024  startup_stm32g431xx.o(STACK)
+    led_count                                0x2000001c   Data           4  main.o(.data)
+    mag_error_count                          0x20000020   Data           4  main.o(.data)
+    .data                                    0x20000030   Section       12  stm32g4xx_hal.o(.data)
+    .data                                    0x2000003c   Section        4  system_stm32g4xx.o(.data)
+    .data                                    0x20000040   Section       16  bmi270.o(.data)
+    .data                                    0x20000050   Section        4  common.o(.data)
+    dev_addr                                 0x20000050   Data           1  common.o(.data)
+    bus_inst                                 0x20000051   Data           1  common.o(.data)
+    intf_conf                                0x20000052   Data           2  common.o(.data)
+    .data                                    0x20000054   Section       12  usart_printf.o(.data)
+    tx_dma_busy                              0x20000054   Data           1  usart_printf.o(.data)
+    tx_head                                  0x20000056   Data           2  usart_printf.o(.data)
+    tx_tail                                  0x20000058   Data           2  usart_printf.o(.data)
+    tx_dma_len                               0x2000005a   Data           2  usart_printf.o(.data)
+    g_huart                                  0x2000005c   Data           4  usart_printf.o(.data)
+    .data                                    0x20000060   Section        4  usart_printf.o(.data)
+    .data                                    0x20000064   Section        6  bmp5_port.o(.data)
+    bmp580_initialized                       0x20000064   Data           1  bmp5_port.o(.data)
+    dev_addr                                 0x20000065   Data           1  bmp5_port.o(.data)
+    osr_odr_cfg                              0x20000066   Data           4  bmp5_port.o(.data)
+    .data                                    0x2000006a   Section        1  bmi270_bmm350.o(.data)
+    is_initialized                           0x2000006a   Data           1  bmi270_bmm350.o(.data)
+    .data                                    0x2000006c   Section       28  fusion_filter.o(.data)
+    beta                                     0x2000006c   Data           4  fusion_filter.o(.data)
+    use_mag                                  0x20000070   Data           4  fusion_filter.o(.data)
+    initialized                              0x20000074   Data           4  fusion_filter.o(.data)
+    q                                        0x20000078   Data          16  fusion_filter.o(.data)
+    .data                                    0x20000088   Section        4  errno.o(.data)
+    _errno                                   0x20000088   Data           4  errno.o(.data)
+    .bss                                     0x2000008c   Section      148  main.o(.bss)
+    .bss                                     0x20000120   Section      172  tim.o(.bss)
+    .bss                                     0x200001cc   Section      340  usart.o(.bss)
+    .bss                                     0x20000320   Section      512  usart_printf.o(.bss)
+    uart_tx_buf                              0x20000320   Data         512  usart_printf.o(.bss)
+    .bss                                     0x20000520   Section       24  bmp5_port.o(.bss)
+    bmp580_dev                               0x20000520   Data          24  bmp5_port.o(.bss)
+    .bss                                     0x20000538   Section      280  bmi270_bmm350.o(.bss)
+    bmm_dev                                  0x20000538   Data         172  bmi270_bmm350.o(.bss)
+    bmi_dev                                  0x200005e8   Data         104  bmi270_bmm350.o(.bss)
+    .bss                                     0x20000650   Section       92  sensor_calibration.o(.bss)
+    simple_calib_data                        0x20000650   Data          64  sensor_calibration.o(.bss)
+    g_devices                                0x20000690   Data          12  sensor_calibration.o(.bss)
+    g_config                                 0x2000069c   Data          16  sensor_calibration.o(.bss)
+    .bss                                     0x200006ac   Section      464  fusion_filter.o(.bss)
+    gyro_bias                                0x200006ac   Data          12  fusion_filter.o(.bss)
+    gyro_bias_learned                        0x200006b8   Data          12  fusion_filter.o(.bss)
+    current_attitude                         0x200006c4   Data          56  fusion_filter.o(.bss)
+    full_debug                               0x200006fc   Data         256  fusion_filter.o(.bss)
+    debug_info                               0x200007fc   Data         128  fusion_filter.o(.bss)
+    STACK                                    0x20000880   Section     1024  startup_stm32g431xx.o(STACK)
 
     Global Symbols
 
@@ -3868,30 +3866,29 @@ Image Symbol Table
     fabs                                     0x080086cb   Thumb Code    24  fabs.o(i.fabs)
     fputc                                    0x08008725   Thumb Code   120  usart_printf.o(i.fputc)
     fusion_get_attitude                      0x080087a5   Thumb Code     8  fusion_filter.o(i.fusion_get_attitude)
-    fusion_get_debug_info                    0x080087b1   Thumb Code    74  fusion_filter.o(i.fusion_get_debug_info)
-    fusion_init                              0x0800881d   Thumb Code    86  fusion_filter.o(i.fusion_init)
-    fusion_set_gyro_bias                     0x080088a1   Thumb Code    22  fusion_filter.o(i.fusion_set_gyro_bias)
-    fusion_set_params                        0x080088bd   Thumb Code    26  fusion_filter.o(i.fusion_set_params)
-    fusion_update                            0x080088f9   Thumb Code   614  fusion_filter.o(i.fusion_update)
-    fusion_use_magnetometer                  0x08008b89   Thumb Code    20  fusion_filter.o(i.fusion_use_magnetometer)
-    main                                     0x08008ffd   Thumb Code  3716  main.o(i.main)
-    perform_gyro_calibration                 0x08009ff9   Thumb Code   550  main.o(i.perform_gyro_calibration)
-    sensor_get_calibration_status            0x0800a795   Thumb Code   186  sensor_calibration.o(i.sensor_get_calibration_status)
-    sensor_has_valid_calibration             0x0800a94d   Thumb Code    16  sensor_calibration.o(i.sensor_has_valid_calibration)
-    sensor_quick_gyro_calibration            0x0800a95d   Thumb Code   216  sensor_calibration.o(i.sensor_quick_gyro_calibration)
-    sensor_simple_calibration                0x0800ab0d   Thumb Code   686  sensor_calibration.o(i.sensor_simple_calibration)
-    sqrt                                     0x0800b529   Thumb Code   110  sqrt.o(i.sqrt)
-    sqrtf                                    0x0800b597   Thumb Code    62  sqrtf.o(i.sqrtf)
-    usart_printf_init                        0x0800b8e5   Thumb Code    14  usart_printf.o(i.usart_printf_init)
-    UARTPrescTable                           0x0800b9cc   Data          24  stm32g4xx_hal_uart.o(.constdata)
-    AHBPrescTable                            0x0800b9f4   Data          16  system_stm32g4xx.o(.constdata)
-    APBPrescTable                            0x0800ba04   Data           8  system_stm32g4xx.o(.constdata)
-    bmi270_config_file                       0x0800ba12   Data        8192  bmi270.o(.constdata)
-    bmi270_feat_in                           0x0800da12   Data          51  bmi270.o(.constdata)
-    bmi270_feat_out                          0x0800da45   Data          21  bmi270.o(.constdata)
-    __mathlib_zero                           0x0800dcd8   Data           8  qnan.o(.constdata)
-    Region$$Table$$Base                      0x0800ed2c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800ed4c   Number         0  anon$$obj.o(Region$$Table)
+    fusion_init                              0x080087b1   Thumb Code    86  fusion_filter.o(i.fusion_init)
+    fusion_set_gyro_bias                     0x08008835   Thumb Code    22  fusion_filter.o(i.fusion_set_gyro_bias)
+    fusion_set_params                        0x08008851   Thumb Code    26  fusion_filter.o(i.fusion_set_params)
+    fusion_update                            0x0800888d   Thumb Code   614  fusion_filter.o(i.fusion_update)
+    fusion_use_magnetometer                  0x08008b1d   Thumb Code    20  fusion_filter.o(i.fusion_use_magnetometer)
+    main                                     0x08008f91   Thumb Code  3590  main.o(i.main)
+    perform_gyro_calibration                 0x08009e65   Thumb Code   550  main.o(i.perform_gyro_calibration)
+    sensor_get_calibration_status            0x0800a601   Thumb Code   186  sensor_calibration.o(i.sensor_get_calibration_status)
+    sensor_has_valid_calibration             0x0800a7b9   Thumb Code    16  sensor_calibration.o(i.sensor_has_valid_calibration)
+    sensor_quick_gyro_calibration            0x0800a7c9   Thumb Code   216  sensor_calibration.o(i.sensor_quick_gyro_calibration)
+    sensor_simple_calibration                0x0800a979   Thumb Code   686  sensor_calibration.o(i.sensor_simple_calibration)
+    sqrt                                     0x0800b395   Thumb Code   110  sqrt.o(i.sqrt)
+    sqrtf                                    0x0800b403   Thumb Code    62  sqrtf.o(i.sqrtf)
+    usart_printf_init                        0x0800b751   Thumb Code    14  usart_printf.o(i.usart_printf_init)
+    UARTPrescTable                           0x0800b838   Data          24  stm32g4xx_hal_uart.o(.constdata)
+    AHBPrescTable                            0x0800b860   Data          16  system_stm32g4xx.o(.constdata)
+    APBPrescTable                            0x0800b870   Data           8  system_stm32g4xx.o(.constdata)
+    bmi270_config_file                       0x0800b87e   Data        8192  bmi270.o(.constdata)
+    bmi270_feat_in                           0x0800d87e   Data          51  bmi270.o(.constdata)
+    bmi270_feat_out                          0x0800d8b1   Data          21  bmi270.o(.constdata)
+    __mathlib_zero                           0x0800db40   Data           8  qnan.o(.constdata)
+    Region$$Table$$Base                      0x0800eb94   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800ebb4   Number         0  anon$$obj.o(Region$$Table)
     use_magnetometer                         0x20000000   Data           1  main.o(.data)
     calibration_done                         0x20000001   Data           1  main.o(.data)
     baro_alt_filtered                        0x20000008   Data           4  main.o(.data)
@@ -3899,27 +3896,27 @@ Image Symbol Table
     altitude_offset                          0x20000010   Data           4  main.o(.data)
     gyro_saturate_count                      0x20000014   Data           4  main.o(.data)
     gyro_error_count                         0x20000018   Data           4  main.o(.data)
-    calib_accel_scale                        0x20000028   Data          12  main.o(.data)
-    uwTickPrio                               0x20000034   Data           4  stm32g4xx_hal.o(.data)
-    uwTickFreq                               0x20000038   Data           4  stm32g4xx_hal.o(.data)
-    uwTick                                   0x2000003c   Data           4  stm32g4xx_hal.o(.data)
-    SystemCoreClock                          0x20000040   Data           4  system_stm32g4xx.o(.data)
-    bmi270_map_int                           0x20000044   Data          16  bmi270.o(.data)
-    __stdout                                 0x20000064   Data           4  usart_printf.o(.data)
-    accel_filtered                           0x20000090   Data          12  main.o(.bss)
-    gyro_filtered                            0x2000009c   Data          12  main.o(.bss)
-    mag_filtered                             0x200000a8   Data          12  main.o(.bss)
-    gyro_bias                                0x200000b4   Data          12  main.o(.bss)
-    calib_gyro_offset                        0x200000c0   Data          12  main.o(.bss)
-    calib_accel_offset                       0x200000cc   Data          12  main.o(.bss)
-    calib_mag_offset                         0x200000d8   Data          12  main.o(.bss)
-    rx_buf                                   0x200000e4   Data          64  main.o(.bss)
-    htim1                                    0x20000124   Data          76  tim.o(.bss)
-    hdma_tim1_up                             0x20000170   Data          96  tim.o(.bss)
-    huart1                                   0x200001d0   Data         148  usart.o(.bss)
-    hdma_usart1_rx                           0x20000264   Data          96  usart.o(.bss)
-    hdma_usart1_tx                           0x200002c4   Data          96  usart.o(.bss)
-    __initial_sp                             0x20000c88   Data           0  startup_stm32g431xx.o(STACK)
+    calib_accel_scale                        0x20000024   Data          12  main.o(.data)
+    uwTickPrio                               0x20000030   Data           4  stm32g4xx_hal.o(.data)
+    uwTickFreq                               0x20000034   Data           4  stm32g4xx_hal.o(.data)
+    uwTick                                   0x20000038   Data           4  stm32g4xx_hal.o(.data)
+    SystemCoreClock                          0x2000003c   Data           4  system_stm32g4xx.o(.data)
+    bmi270_map_int                           0x20000040   Data          16  bmi270.o(.data)
+    __stdout                                 0x20000060   Data           4  usart_printf.o(.data)
+    accel_filtered                           0x2000008c   Data          12  main.o(.bss)
+    gyro_filtered                            0x20000098   Data          12  main.o(.bss)
+    mag_filtered                             0x200000a4   Data          12  main.o(.bss)
+    gyro_bias                                0x200000b0   Data          12  main.o(.bss)
+    calib_gyro_offset                        0x200000bc   Data          12  main.o(.bss)
+    calib_accel_offset                       0x200000c8   Data          12  main.o(.bss)
+    calib_mag_offset                         0x200000d4   Data          12  main.o(.bss)
+    rx_buf                                   0x200000e0   Data          64  main.o(.bss)
+    htim1                                    0x20000120   Data          76  tim.o(.bss)
+    hdma_tim1_up                             0x2000016c   Data          96  tim.o(.bss)
+    huart1                                   0x200001cc   Data         148  usart.o(.bss)
+    hdma_usart1_rx                           0x20000260   Data          96  usart.o(.bss)
+    hdma_usart1_tx                           0x200002c0   Data          96  usart.o(.bss)
+    __initial_sp                             0x20000c80   Data           0  startup_stm32g431xx.o(STACK)
 
 
 
@@ -3929,9 +3926,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001d9
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000eddc, Max: 0x00020000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000ec40, Max: 0x00020000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000ed4c, Max: 0x00020000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000ebb4, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4242,114 +4239,111 @@ Memory Map of the image
     0x080086e2   0x080086e2   0x00000042   Code   RO         4962    i.fix_sign          bmm350.o
     0x08008724   0x08008724   0x00000080   Code   RO         5179    i.fputc             usart_printf.o
     0x080087a4   0x080087a4   0x0000000c   Code   RO         6212    i.fusion_get_attitude  fusion_filter.o
-    0x080087b0   0x080087b0   0x0000006c   Code   RO         6213    i.fusion_get_debug_info  fusion_filter.o
-    0x0800881c   0x0800881c   0x00000084   Code   RO         6214    i.fusion_init       fusion_filter.o
-    0x080088a0   0x080088a0   0x0000001c   Code   RO         6215    i.fusion_set_gyro_bias  fusion_filter.o
-    0x080088bc   0x080088bc   0x0000003c   Code   RO         6216    i.fusion_set_params  fusion_filter.o
-    0x080088f8   0x080088f8   0x00000290   Code   RO         6217    i.fusion_update     fusion_filter.o
-    0x08008b88   0x08008b88   0x00000040   Code   RO         6218    i.fusion_use_magnetometer  fusion_filter.o
-    0x08008bc8   0x08008bc8   0x00000020   Code   RO         3827    i.get_acc_gyr_data  bmi2.o
-    0x08008be8   0x08008be8   0x0000004e   Code   RO         3828    i.get_accel_config  bmi2.o
-    0x08008c36   0x08008c36   0x0000005a   Code   RO         3829    i.get_aux_interface_config  bmi2.o
-    0x08008c90   0x08008c90   0x0000005e   Code   RO         3831    i.get_gyro_config   bmi2.o
-    0x08008cee   0x08008cee   0x00000072   Code   RO         3832    i.get_gyro_cross_sense  bmi2.o
-    0x08008d60   0x08008d60   0x0000008a   Code   RO         3833    i.get_gyro_gain_update_config  bmi2.o
-    0x08008dea   0x08008dea   0x00000068   Code   RO         3834    i.get_gyro_gain_update_status  bmi2.o
-    0x08008e52   0x08008e52   0x00000014   Code   RO         5405    i.get_nvm_status    bmp5.o
-    0x08008e66   0x08008e66   0x00000056   Code   RO         3838    i.get_remapped_data  bmi2.o
-    0x08008ebc   0x08008ebc   0x0000003c   Code   RO         6219    i.invSqrt           fusion_filter.o
-    0x08008ef8   0x08008ef8   0x00000030   Code   RO         5935    i.load_simple_calib_data  sensor_calibration.o
-    0x08008f28   0x08008f28   0x00000064   Code   RO         5652    i.lsb_to_dps        bmi270_bmm350.o
-    0x08008f8c   0x08008f8c   0x00000070   Code   RO         5653    i.lsb_to_mps2       bmi270_bmm350.o
-    0x08008ffc   0x08008ffc   0x00000f9c   Code   RO           16    i.main              main.o
-    0x08009f98   0x08009f98   0x00000018   Code   RO         3842    i.null_ptr_check    bmi2.o
-    0x08009fb0   0x08009fb0   0x00000018   Code   RO         4653    i.null_ptr_check    bmi270.o
-    0x08009fc8   0x08009fc8   0x00000018   Code   RO         4963    i.null_ptr_check    bmm350.o
-    0x08009fe0   0x08009fe0   0x00000018   Code   RO         5406    i.null_ptr_check    bmp5.o
-    0x08009ff8   0x08009ff8   0x00000380   Code   RO           17    i.perform_gyro_calibration  main.o
-    0x0800a378   0x0800a378   0x000000d2   Code   RO         3852    i.read_aux_data     bmi2.o
-    0x0800a44a   0x0800a44a   0x000000d8   Code   RO         4964    i.read_otp_word     bmm350.o
-    0x0800a522   0x0800a522   0x00000002   PAD
-    0x0800a524   0x0800a524   0x000000e0   Code   RO         4965    i.read_out_raw_data  bmm350.o
-    0x0800a604   0x0800a604   0x0000004c   Code   RO         5937    i.save_simple_calib_data  sensor_calibration.o
-    0x0800a650   0x0800a650   0x0000004c   Code   RO         3856    i.select_sensor     bmi2.o
-    0x0800a69c   0x0800a69c   0x0000007c   Code   RO         3858    i.sensor_disable    bmi2.o
-    0x0800a718   0x0800a718   0x0000007c   Code   RO         3859    i.sensor_enable     bmi2.o
-    0x0800a794   0x0800a794   0x000001b8   Code   RO         5939    i.sensor_get_calibration_status  sensor_calibration.o
-    0x0800a94c   0x0800a94c   0x00000010   Code   RO         5940    i.sensor_has_valid_calibration  sensor_calibration.o
-    0x0800a95c   0x0800a95c   0x000001b0   Code   RO         5941    i.sensor_quick_gyro_calibration  sensor_calibration.o
-    0x0800ab0c   0x0800ab0c   0x0000057c   Code   RO         5942    i.sensor_simple_calibration  sensor_calibration.o
-    0x0800b088   0x0800b088   0x00000098   Code   RO         3860    i.set_accel_config  bmi2.o
-    0x0800b120   0x0800b120   0x00000090   Code   RO         3861    i.set_aux_config    bmi2.o
-    0x0800b1b0   0x0800b1b0   0x00000036   Code   RO         3862    i.set_config_load   bmi2.o
-    0x0800b1e6   0x0800b1e6   0x0000008a   Code   RO         5408    i.set_deep_standby_mode  bmp5.o
-    0x0800b270   0x0800b270   0x000000ac   Code   RO         3863    i.set_gyro_config   bmi2.o
-    0x0800b31c   0x0800b31c   0x000000a2   Code   RO         3864    i.set_gyro_user_gain_config  bmi2.o
-    0x0800b3be   0x0800b3be   0x0000005c   Code   RO         3865    i.set_if_aux_not_busy  bmi2.o
-    0x0800b41a   0x0800b41a   0x00000034   Code   RO         5411    i.set_power_mode    bmp5.o
-    0x0800b44e   0x0800b44e   0x00000002   PAD
-    0x0800b450   0x0800b450   0x00000084   Code   RO         4968    i.set_powermode     bmm350.o
-    0x0800b4d4   0x0800b4d4   0x00000020   Code   RO         5412    i.set_standby_mode  bmp5.o
-    0x0800b4f4   0x0800b4f4   0x00000034   Code   RO         5943    i.simple_crc32      sensor_calibration.o
-    0x0800b528   0x0800b528   0x0000006e   Code   RO         6675    i.sqrt              m_wm.l(sqrt.o)
-    0x0800b596   0x0800b596   0x0000003e   Code   RO         6330    i.sqrtf             m_wm.l(sqrtf.o)
-    0x0800b5d4   0x0800b5d4   0x00000048   Code   RO         5181    i.uart_tx_start_dma  usart_printf.o
-    0x0800b61c   0x0800b61c   0x0000002c   Code   RO         4969    i.update_default_coefiecents  bmm350.o
-    0x0800b648   0x0800b648   0x0000025c   Code   RO         4970    i.update_mag_off_sens  bmm350.o
-    0x0800b8a4   0x0800b8a4   0x00000040   Code   RO         3881    i.upload_file       bmi2.o
-    0x0800b8e4   0x0800b8e4   0x00000014   Code   RO         5182    i.usart_printf_init  usart_printf.o
-    0x0800b8f8   0x0800b8f8   0x000000ba   Code   RO         3886    i.write_config_file  bmi2.o
-    0x0800b9b2   0x0800b9b2   0x00000002   PAD
-    0x0800b9b4   0x0800b9b4   0x00000018   Data   RO           20    .constdata          main.o
-    0x0800b9cc   0x0800b9cc   0x00000018   Data   RO         3224    .constdata          stm32g4xx_hal_uart.o
-    0x0800b9e4   0x0800b9e4   0x00000010   Data   RO         3590    .constdata          stm32g4xx_hal_uart_ex.o
-    0x0800b9f4   0x0800b9f4   0x00000010   Data   RO         3695    .constdata          system_stm32g4xx.o
-    0x0800ba04   0x0800ba04   0x00000008   Data   RO         3696    .constdata          system_stm32g4xx.o
-    0x0800ba0c   0x0800ba0c   0x00000006   Data   RO         3888    .constdata          bmi2.o
-    0x0800ba12   0x0800ba12   0x00002048   Data   RO         4673    .constdata          bmi270.o
-    0x0800da5a   0x0800da5a   0x00000002   PAD
-    0x0800da5c   0x0800da5c   0x00000020   Data   RO         4971    .constdata          bmm350.o
-    0x0800da7c   0x0800da7c   0x00000090   Data   RO         5945    .constdata          sensor_calibration.o
-    0x0800db0c   0x0800db0c   0x00000004   PAD
-    0x0800db10   0x0800db10   0x00000088   Data   RO         6303    .constdata          m_wm.l(pow.o)
-    0x0800db98   0x0800db98   0x00000140   Data   RO         6317    .constdata          m_wm.l(powf.o)
-    0x0800dcd8   0x0800dcd8   0x00000008   Data   RO         6672    .constdata          m_wm.l(qnan.o)
-    0x0800dce0   0x0800dce0   0x00000ebd   Data   RO         4880    .conststring        common.o
-    0x0800eb9d   0x0800eb9d   0x00000003   PAD
-    0x0800eba0   0x0800eba0   0x0000012b   Data   RO         5655    .conststring        bmi270_bmm350.o
-    0x0800eccb   0x0800eccb   0x00000001   PAD
-    0x0800eccc   0x0800eccc   0x0000005e   Data   RO         5946    .conststring        sensor_calibration.o
-    0x0800ed2a   0x0800ed2a   0x00000002   PAD
-    0x0800ed2c   0x0800ed2c   0x00000020   Data   RO         6739    Region$$Table       anon$$obj.o
+    0x080087b0   0x080087b0   0x00000084   Code   RO         6214    i.fusion_init       fusion_filter.o
+    0x08008834   0x08008834   0x0000001c   Code   RO         6215    i.fusion_set_gyro_bias  fusion_filter.o
+    0x08008850   0x08008850   0x0000003c   Code   RO         6216    i.fusion_set_params  fusion_filter.o
+    0x0800888c   0x0800888c   0x00000290   Code   RO         6217    i.fusion_update     fusion_filter.o
+    0x08008b1c   0x08008b1c   0x00000040   Code   RO         6218    i.fusion_use_magnetometer  fusion_filter.o
+    0x08008b5c   0x08008b5c   0x00000020   Code   RO         3827    i.get_acc_gyr_data  bmi2.o
+    0x08008b7c   0x08008b7c   0x0000004e   Code   RO         3828    i.get_accel_config  bmi2.o
+    0x08008bca   0x08008bca   0x0000005a   Code   RO         3829    i.get_aux_interface_config  bmi2.o
+    0x08008c24   0x08008c24   0x0000005e   Code   RO         3831    i.get_gyro_config   bmi2.o
+    0x08008c82   0x08008c82   0x00000072   Code   RO         3832    i.get_gyro_cross_sense  bmi2.o
+    0x08008cf4   0x08008cf4   0x0000008a   Code   RO         3833    i.get_gyro_gain_update_config  bmi2.o
+    0x08008d7e   0x08008d7e   0x00000068   Code   RO         3834    i.get_gyro_gain_update_status  bmi2.o
+    0x08008de6   0x08008de6   0x00000014   Code   RO         5405    i.get_nvm_status    bmp5.o
+    0x08008dfa   0x08008dfa   0x00000056   Code   RO         3838    i.get_remapped_data  bmi2.o
+    0x08008e50   0x08008e50   0x0000003c   Code   RO         6219    i.invSqrt           fusion_filter.o
+    0x08008e8c   0x08008e8c   0x00000030   Code   RO         5935    i.load_simple_calib_data  sensor_calibration.o
+    0x08008ebc   0x08008ebc   0x00000064   Code   RO         5652    i.lsb_to_dps        bmi270_bmm350.o
+    0x08008f20   0x08008f20   0x00000070   Code   RO         5653    i.lsb_to_mps2       bmi270_bmm350.o
+    0x08008f90   0x08008f90   0x00000e74   Code   RO           16    i.main              main.o
+    0x08009e04   0x08009e04   0x00000018   Code   RO         3842    i.null_ptr_check    bmi2.o
+    0x08009e1c   0x08009e1c   0x00000018   Code   RO         4653    i.null_ptr_check    bmi270.o
+    0x08009e34   0x08009e34   0x00000018   Code   RO         4963    i.null_ptr_check    bmm350.o
+    0x08009e4c   0x08009e4c   0x00000018   Code   RO         5406    i.null_ptr_check    bmp5.o
+    0x08009e64   0x08009e64   0x00000380   Code   RO           17    i.perform_gyro_calibration  main.o
+    0x0800a1e4   0x0800a1e4   0x000000d2   Code   RO         3852    i.read_aux_data     bmi2.o
+    0x0800a2b6   0x0800a2b6   0x000000d8   Code   RO         4964    i.read_otp_word     bmm350.o
+    0x0800a38e   0x0800a38e   0x00000002   PAD
+    0x0800a390   0x0800a390   0x000000e0   Code   RO         4965    i.read_out_raw_data  bmm350.o
+    0x0800a470   0x0800a470   0x0000004c   Code   RO         5937    i.save_simple_calib_data  sensor_calibration.o
+    0x0800a4bc   0x0800a4bc   0x0000004c   Code   RO         3856    i.select_sensor     bmi2.o
+    0x0800a508   0x0800a508   0x0000007c   Code   RO         3858    i.sensor_disable    bmi2.o
+    0x0800a584   0x0800a584   0x0000007c   Code   RO         3859    i.sensor_enable     bmi2.o
+    0x0800a600   0x0800a600   0x000001b8   Code   RO         5939    i.sensor_get_calibration_status  sensor_calibration.o
+    0x0800a7b8   0x0800a7b8   0x00000010   Code   RO         5940    i.sensor_has_valid_calibration  sensor_calibration.o
+    0x0800a7c8   0x0800a7c8   0x000001b0   Code   RO         5941    i.sensor_quick_gyro_calibration  sensor_calibration.o
+    0x0800a978   0x0800a978   0x0000057c   Code   RO         5942    i.sensor_simple_calibration  sensor_calibration.o
+    0x0800aef4   0x0800aef4   0x00000098   Code   RO         3860    i.set_accel_config  bmi2.o
+    0x0800af8c   0x0800af8c   0x00000090   Code   RO         3861    i.set_aux_config    bmi2.o
+    0x0800b01c   0x0800b01c   0x00000036   Code   RO         3862    i.set_config_load   bmi2.o
+    0x0800b052   0x0800b052   0x0000008a   Code   RO         5408    i.set_deep_standby_mode  bmp5.o
+    0x0800b0dc   0x0800b0dc   0x000000ac   Code   RO         3863    i.set_gyro_config   bmi2.o
+    0x0800b188   0x0800b188   0x000000a2   Code   RO         3864    i.set_gyro_user_gain_config  bmi2.o
+    0x0800b22a   0x0800b22a   0x0000005c   Code   RO         3865    i.set_if_aux_not_busy  bmi2.o
+    0x0800b286   0x0800b286   0x00000034   Code   RO         5411    i.set_power_mode    bmp5.o
+    0x0800b2ba   0x0800b2ba   0x00000002   PAD
+    0x0800b2bc   0x0800b2bc   0x00000084   Code   RO         4968    i.set_powermode     bmm350.o
+    0x0800b340   0x0800b340   0x00000020   Code   RO         5412    i.set_standby_mode  bmp5.o
+    0x0800b360   0x0800b360   0x00000034   Code   RO         5943    i.simple_crc32      sensor_calibration.o
+    0x0800b394   0x0800b394   0x0000006e   Code   RO         6675    i.sqrt              m_wm.l(sqrt.o)
+    0x0800b402   0x0800b402   0x0000003e   Code   RO         6330    i.sqrtf             m_wm.l(sqrtf.o)
+    0x0800b440   0x0800b440   0x00000048   Code   RO         5181    i.uart_tx_start_dma  usart_printf.o
+    0x0800b488   0x0800b488   0x0000002c   Code   RO         4969    i.update_default_coefiecents  bmm350.o
+    0x0800b4b4   0x0800b4b4   0x0000025c   Code   RO         4970    i.update_mag_off_sens  bmm350.o
+    0x0800b710   0x0800b710   0x00000040   Code   RO         3881    i.upload_file       bmi2.o
+    0x0800b750   0x0800b750   0x00000014   Code   RO         5182    i.usart_printf_init  usart_printf.o
+    0x0800b764   0x0800b764   0x000000ba   Code   RO         3886    i.write_config_file  bmi2.o
+    0x0800b81e   0x0800b81e   0x00000002   PAD
+    0x0800b820   0x0800b820   0x00000018   Data   RO           20    .constdata          main.o
+    0x0800b838   0x0800b838   0x00000018   Data   RO         3224    .constdata          stm32g4xx_hal_uart.o
+    0x0800b850   0x0800b850   0x00000010   Data   RO         3590    .constdata          stm32g4xx_hal_uart_ex.o
+    0x0800b860   0x0800b860   0x00000010   Data   RO         3695    .constdata          system_stm32g4xx.o
+    0x0800b870   0x0800b870   0x00000008   Data   RO         3696    .constdata          system_stm32g4xx.o
+    0x0800b878   0x0800b878   0x00000006   Data   RO         3888    .constdata          bmi2.o
+    0x0800b87e   0x0800b87e   0x00002048   Data   RO         4673    .constdata          bmi270.o
+    0x0800d8c6   0x0800d8c6   0x00000002   PAD
+    0x0800d8c8   0x0800d8c8   0x00000020   Data   RO         4971    .constdata          bmm350.o
+    0x0800d8e8   0x0800d8e8   0x00000090   Data   RO         5945    .constdata          sensor_calibration.o
+    0x0800d978   0x0800d978   0x00000088   Data   RO         6303    .constdata          m_wm.l(pow.o)
+    0x0800da00   0x0800da00   0x00000140   Data   RO         6317    .constdata          m_wm.l(powf.o)
+    0x0800db40   0x0800db40   0x00000008   Data   RO         6672    .constdata          m_wm.l(qnan.o)
+    0x0800db48   0x0800db48   0x00000ebd   Data   RO         4880    .conststring        common.o
+    0x0800ea05   0x0800ea05   0x00000003   PAD
+    0x0800ea08   0x0800ea08   0x0000012b   Data   RO         5655    .conststring        bmi270_bmm350.o
+    0x0800eb33   0x0800eb33   0x00000001   PAD
+    0x0800eb34   0x0800eb34   0x0000005e   Data   RO         5946    .conststring        sensor_calibration.o
+    0x0800eb92   0x0800eb92   0x00000002   PAD
+    0x0800eb94   0x0800eb94   0x00000020   Data   RO         6739    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800ed4c, Size: 0x00000c88, Max: 0x00008000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800ebb4, Size: 0x00000c80, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x0800ed4c   0x00000034   Data   RW           22    .data               main.o
-    0x20000034   0x0800ed80   0x0000000c   Data   RW         1928    .data               stm32g4xx_hal.o
-    0x20000040   0x0800ed8c   0x00000004   Data   RW         3697    .data               system_stm32g4xx.o
-    0x20000044   0x0800ed90   0x00000010   Data   RW         4674    .data               bmi270.o
-    0x20000054   0x0800eda0   0x00000004   Data   RW         4881    .data               common.o
-    0x20000058   0x0800eda4   0x0000000c   Data   RW         5184    .data               usart_printf.o
-    0x20000064   0x0800edb0   0x00000004   Data   RW         5185    .data               usart_printf.o
-    0x20000068   0x0800edb4   0x00000006   Data   RW         5595    .data               bmp5_port.o
-    0x2000006e   0x0800edba   0x00000001   Data   RW         5656    .data               bmi270_bmm350.o
-    0x2000006f   0x0800edbb   0x00000001   PAD
-    0x20000070   0x0800edbc   0x0000001c   Data   RW         6221    .data               fusion_filter.o
-    0x2000008c   0x0800edd8   0x00000004   Data   RW         6710    .data               mc_w.l(errno.o)
-    0x20000090        -       0x00000094   Zero   RW           18    .bss                main.o
-    0x20000124        -       0x000000ac   Zero   RW          294    .bss                tim.o
-    0x200001d0        -       0x00000154   Zero   RW          336    .bss                usart.o
-    0x20000324        -       0x00000200   Zero   RW         5183    .bss                usart_printf.o
-    0x20000524        -       0x00000018   Zero   RW         5594    .bss                bmp5_port.o
-    0x2000053c   0x0800eddc   0x00000004   PAD
-    0x20000540        -       0x00000118   Zero   RW         5654    .bss                bmi270_bmm350.o
-    0x20000658        -       0x0000005c   Zero   RW         5944    .bss                sensor_calibration.o
-    0x200006b4        -       0x000001d0   Zero   RW         6220    .bss                fusion_filter.o
-    0x20000884   0x0800eddc   0x00000004   PAD
-    0x20000888        -       0x00000400   Zero   RW            1    STACK               startup_stm32g431xx.o
+    0x20000000   0x0800ebb4   0x00000030   Data   RW           22    .data               main.o
+    0x20000030   0x0800ebe4   0x0000000c   Data   RW         1928    .data               stm32g4xx_hal.o
+    0x2000003c   0x0800ebf0   0x00000004   Data   RW         3697    .data               system_stm32g4xx.o
+    0x20000040   0x0800ebf4   0x00000010   Data   RW         4674    .data               bmi270.o
+    0x20000050   0x0800ec04   0x00000004   Data   RW         4881    .data               common.o
+    0x20000054   0x0800ec08   0x0000000c   Data   RW         5184    .data               usart_printf.o
+    0x20000060   0x0800ec14   0x00000004   Data   RW         5185    .data               usart_printf.o
+    0x20000064   0x0800ec18   0x00000006   Data   RW         5595    .data               bmp5_port.o
+    0x2000006a   0x0800ec1e   0x00000001   Data   RW         5656    .data               bmi270_bmm350.o
+    0x2000006b   0x0800ec1f   0x00000001   PAD
+    0x2000006c   0x0800ec20   0x0000001c   Data   RW         6221    .data               fusion_filter.o
+    0x20000088   0x0800ec3c   0x00000004   Data   RW         6710    .data               mc_w.l(errno.o)
+    0x2000008c        -       0x00000094   Zero   RW           18    .bss                main.o
+    0x20000120        -       0x000000ac   Zero   RW          294    .bss                tim.o
+    0x200001cc        -       0x00000154   Zero   RW          336    .bss                usart.o
+    0x20000320        -       0x00000200   Zero   RW         5183    .bss                usart_printf.o
+    0x20000520        -       0x00000018   Zero   RW         5594    .bss                bmp5_port.o
+    0x20000538        -       0x00000118   Zero   RW         5654    .bss                bmi270_bmm350.o
+    0x20000650        -       0x0000005c   Zero   RW         5944    .bss                sensor_calibration.o
+    0x200006ac        -       0x000001d0   Zero   RW         6220    .bss                fusion_filter.o
+    0x2000087c   0x0800ec40   0x00000004   PAD
+    0x20000880        -       0x00000400   Zero   RW            1    STACK               startup_stm32g431xx.o
 
 
 ==============================================================================
@@ -4370,10 +4364,10 @@ Image component sizes
        700        310       3773          4          0       4831   common.o
        110         24          0          0          0       1979   delay.o
         92          4          0          0          0        850   dma.o
-      2868        228          0         28        464       9733   fusion_filter.o
+      2760        194          0         28        464       9593   fusion_filter.o
        128          8          0          0          0        951   gpio.o
          0          0          0          0          0        336   imu_attitude.o
-      5040       2124         24         52        148     724594   main.o
+      4744       2022         24         48        148     724506   main.o
        844         40          0          0          0       7839   myiic.o
       2636       1276        238          0         92      10754   sensor_calibration.o
         36          8        472          0       1024        848   startup_stm32g431xx.o
@@ -4397,9 +4391,9 @@ Image component sizes
        256         28          0         16        512       4944   usart_printf.o
 
     ----------------------------------------------------------------------
-     36158       5828      13216        140       3064    1100421   Object Totals
+     35754       5692      13212        136       3060    1100193   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        44          0         12          1          8          0   (incl. Padding)
+        44          0          8          1          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -4477,15 +4471,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     47068       6552      13680        144       3064    1076993   Grand Totals
-     47068       6552      13680        144       3064    1076993   ELF Image Totals
-     47068       6552      13680        144          0          0   ROM Totals
+     46664       6416      13676        140       3060    1076865   Grand Totals
+     46664       6416      13676        140       3060    1076865   ELF Image Totals
+     46664       6416      13676        140          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                60748 (  59.32kB)
-    Total RW  Size (RW Data + ZI Data)              3208 (   3.13kB)
-    Total ROM Size (Code + RO Data + RW Data)      60892 (  59.46kB)
+    Total RO  Size (Code + RO Data)                60340 (  58.93kB)
+    Total RW  Size (RW Data + ZI Data)              3200 (   3.13kB)
+    Total ROM Size (Code + RO Data + RW Data)      60480 (  59.06kB)
 
 ==============================================================================
 
