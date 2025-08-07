@@ -8,6 +8,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
+#include "delay.h"
 
 /* Private variables */
 static sensor_devices_t g_devices;
@@ -963,7 +964,7 @@ int sensor_simple_calibration(void)
         }
         */
         
-        HAL_Delay(10);
+        delay_ms(10);
         
         if (i % 100 == 0) {
             printf("Gyro progress: %d%%\n", i * 100 / gyro_samples);
@@ -983,7 +984,7 @@ int sensor_simple_calibration(void)
     /* 2. 加速度计校准 - 简化版本（仅Z轴） */
     printf("\nStep 2/4: Accelerometer calibration\n");
     printf("Place device horizontally (Z-axis up) for 3 seconds...\n");
-    HAL_Delay(3000);
+    delay_ms(3000);
     
     float accel_sum[3] = {0};
     int accel_samples = 300;
@@ -1005,7 +1006,7 @@ int sensor_simple_calibration(void)
         }
         */
         
-        HAL_Delay(10);
+        delay_ms(10);
     }
     
     // 计算加速度计偏移（假设Z轴应该是1g）
@@ -1043,7 +1044,7 @@ int sensor_simple_calibration(void)
         }
         */
         
-        HAL_Delay(10);
+        delay_ms(10);
         
         if (i % 200 == 0) {
             printf("Mag progress: %d%%\n", i * 100 / mag_samples);
@@ -1077,7 +1078,7 @@ int sensor_simple_calibration(void)
         */
         
         pressure_sum += 101325.0f; // 占位符
-        HAL_Delay(30);
+        delay_ms(30);
     }
     
     float avg_pressure = pressure_sum / baro_samples;
@@ -1117,7 +1118,7 @@ int sensor_quick_gyro_calibration(void)
         /* TODO: 读取陀螺仪数据 */
         /* 示例代码见上面的实现 */
         
-        HAL_Delay(10);
+        delay_ms(10);
         
         if (i % 60 == 0) {
             printf("Progress: %d%%\n", i * 100 / samples);
@@ -1275,3 +1276,6 @@ float calib_get_altitude_offset(void)
 {
     return simple_calib_data.baro_altitude_offset;
 }
+
+
+

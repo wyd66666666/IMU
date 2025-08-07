@@ -1,7 +1,7 @@
 Dependencies for Project 'IMU_BM1270_BMM350', Target 'IMU_BM1270_BMM350': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
 F (startup_stm32g431xx.s)(0x6892FF21)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include--pd "__UVISION_VERSION SETA 542" --pd "STM32G431xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32g431xx.lst --xref -o imu_bm1270_bmm350\startup_stm32g431xx.o --depend imu_bm1270_bmm350\startup_stm32g431xx.d)
-F (../Core/Src/main.c)(0x689364AF)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\main.o --omf_browse imu_bm1270_bmm350\main.crf --depend imu_bm1270_bmm350\main.d)
+F (../Core/Src/main.c)(0x68940B0F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\main.o --omf_browse imu_bm1270_bmm350\main.crf --depend imu_bm1270_bmm350\main.d)
 I (../Core/Inc/main.h)(0x6892FB41)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x66604C2F)
 I (../Core/Inc/stm32g4xx_hal_conf.h)(0x6892B2CA)
@@ -52,9 +52,9 @@ I (../HARDWARE/BMM350/bmm350_defs.h)(0x6835B041)
 I (../HARDWARE/BMP580/bmp5_port.h)(0x6892EDA7)
 I (../HARDWARE/BMP580/bmp5.h)(0x6529BEE0)
 I (../HARDWARE/BMP580/bmp5_defs.h)(0x6529BEE0)
-I (..\HARDWARE\CALIBRATION\sensor_calibration.h)(0x6893233F)
+I (..\HARDWARE\CALIBRATION\sensor_calibration.h)(0x68940B0F)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdbool.h)(0x5EC775F6)
-I (..\HARDWARE\EKF\fusion_filter.h)(0x689332F3)
+I (..\HARDWARE\EKF\fusion_filter.h)(0x68941669)
 I (../HARDWARE/ANONY_PROTOCOL/anony_protocol.h)(0x688EF507)
 F (../Core/Src/gpio.c)(0x6892FF1E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\gpio.o --omf_browse imu_bm1270_bmm350\gpio.crf --depend imu_bm1270_bmm350\gpio.d)
 I (../Core/Inc/gpio.h)(0x688C7EB0)
@@ -1169,22 +1169,54 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x66604C2F)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x66604C30)
 I (../HARDWARE/DELAY/delay.h)(0x6892D1DC)
 I (../Core/Inc/main.h)(0x6892FB41)
-F (..\HARDWARE\CALIBRATION\sensor_calibration.c)(0x6893233F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\sensor_calibration.o --omf_browse imu_bm1270_bmm350\sensor_calibration.crf --depend imu_bm1270_bmm350\sensor_calibration.d)
-I (..\HARDWARE\CALIBRATION\sensor_calibration.h)(0x6893233F)
+F (..\HARDWARE\CALIBRATION\sensor_calibration.c)(0x68940B3A)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\sensor_calibration.o --omf_browse imu_bm1270_bmm350\sensor_calibration.crf --depend imu_bm1270_bmm350\sensor_calibration.d)
+I (..\HARDWARE\CALIBRATION\sensor_calibration.h)(0x68940B0F)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdbool.h)(0x5EC775F6)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdio.h)(0x688E27FC)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\math.h)(0x5EC77604)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
+I (../HARDWARE/DELAY/delay.h)(0x6892D1DC)
+I (../Core/Inc/main.h)(0x6892FB41)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x66604C2F)
+I (../Core/Inc/stm32g4xx_hal_conf.h)(0x6892B2CA)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h)(0x66604C2F)
+I (../Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4xx.h)(0x66604C36)
+I (../Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h)(0x66604C36)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x66604C36)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x66604C36)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x66604C36)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x66604C36)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x66604C36)
+I (../Drivers/CMSIS/Device/ST/STM32G4xx/Include/system_stm32g4xx.h)(0x66604C36)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x66604C2F)
+I (F:\code\keil5\keil5core\ARM\ARMCC\include\stddef.h)(0x5EC775FC)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc_ex.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_gpio.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_gpio_ex.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma_ex.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h)(0x66604C30)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_exti.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash.h)(0x66604C30)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ex.h)(0x66604C30)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ramfunc.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x66604C2F)
+I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x66604C30)
 F (..\HARDWARE\EKF\ekf_fusion.c)(0x68932FEA)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\ekf_fusion.o --omf_browse imu_bm1270_bmm350\ekf_fusion.crf --depend imu_bm1270_bmm350\ekf_fusion.d)
 I (..\HARDWARE\EKF\ekf_fusion.h)(0x68932FE2)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\math.h)(0x5EC77604)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdio.h)(0x688E27FC)
-F (..\HARDWARE\EKF\fusion_filter.c)(0x6893604A)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\fusion_filter.o --omf_browse imu_bm1270_bmm350\fusion_filter.crf --depend imu_bm1270_bmm350\fusion_filter.d)
-I (..\HARDWARE\EKF\fusion_filter.h)(0x689332F3)
+F (..\HARDWARE\EKF\fusion_filter.c)(0x68941705)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../HARDWARE/BMI270 -I ../HARDWARE/BMM350 -I ../HARDWARE/common -I ../HARDWARE/DELAY -I ../HARDWARE/PRINTF -I ../HARDWARE/ANONY_PROTOCOL -I ../HARDWARE/IMU_ATTITUDE -I ../HARDWARE/BMP580 -I ../HARDWARE/IIC -I ..\HARDWARE\CALIBRATION -I ..\HARDWARE\EKF-I.\RTE\_IMU_BM1270_BMM350-IF:\code\keil5\keil5core\ARM\CMSIS\6.1.0\CMSIS\Core\Include-IF:\code\keil5\keil5core\Keil\STM32G4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include-D__UVISION_VERSION="542" -DSTM32G431xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G431xx-o imu_bm1270_bmm350\fusion_filter.o --omf_browse imu_bm1270_bmm350\fusion_filter.crf --depend imu_bm1270_bmm350\fusion_filter.d)
+I (..\HARDWARE\EKF\fusion_filter.h)(0x68941669)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\stdint.h)(0x5EC775FC)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\math.h)(0x5EC77604)
 I (F:\code\keil5\keil5core\ARM\ARMCC\include\string.h)(0x5EC77604)

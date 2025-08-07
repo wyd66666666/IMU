@@ -23,6 +23,10 @@ static int use_mag = 0;                        // 是否使用磁力计
 static int initialized = 0;                    // 初始化标志
 static char debug_info[128];                   // 调试信息
 
+// 全局变量添加
+static float prev_yaw = 0.0f;      // 上一次的偏航角
+static float yaw_continuous = 0.0f; // 连续偏航角（不限范围）
+
 // 输出
 static attitude_data_t current_attitude = {0};
 
@@ -115,10 +119,33 @@ void fusion_update(float acc[3], float gyro[3], float mag[3], float baro_alt, fl
         gyro_bias_learned[2] = gyro_bias_learned[2] * (1.0f - alpha) + gyro[2] * alpha;
     }
     
-    // 使用Madgwick算法更新姿态
+    // 检测磁场干扰
     if (use_mag && mag) {
-        MadgwickAHRSupdate(gx, gy, gz, acc[0], acc[1], acc[2], mag[0], mag[1], mag[2], dt);
+        float mag_norm = sqrtf(mag[0]*mag[0] + mag[1]*mag[1] + mag[2]*mag[2]);
+        static float last_mag_norm = 0;
+        static int first_mag = 1;
+        
+        if (first_mag) {
+            last_mag_norm = mag_norm;
+            first_mag = 0;
+        }
+        
+        // 检测磁场强度变化，变化过大说明有干扰
+        float mag_change = fabsf(mag_norm - last_mag_norm) / (last_mag_norm + 0.01f);
+        if (mag_change > 0.1f) { // 10%变化认为有干扰
+            // 有干扰时不使用磁力计
+            MadgwickAHRSupdateIMU(gx, gy, gz, acc[0], acc[1], acc[2], dt);
+            sprintf(debug_info, "Mag disturbance: %.1f%%", mag_change * 100.0f);
+        } else {
+            // 无干扰时正常使用，但使用较小的增益
+            float old_beta = beta;
+            beta *= 0.1f; // 减小磁力计影响
+            MadgwickAHRSupdate(gx, gy, gz, acc[0], acc[1], acc[2], mag[0], mag[1], mag[2], dt);
+            beta = old_beta; // 恢复原始beta值
+        }
+        last_mag_norm = mag_norm;
     } else {
+        // 不使用磁力计
         MadgwickAHRSupdateIMU(gx, gy, gz, acc[0], acc[1], acc[2], dt);
     }
     
@@ -135,11 +162,36 @@ void fusion_update(float acc[3], float gyro[3], float mag[3], float baro_alt, fl
 
     float siny_cosp = 2.0f * (q[0] * q[3] + q[1] * q[2]);
     float cosy_cosp = 1.0f - 2.0f * (q[2] * q[2] + q[3] * q[3]);
-    current_attitude.yaw = atan2f(siny_cosp, cosy_cosp) * RAD_TO_DEG;
     
-    // 确保偏航角在0-360范围内
-    if (current_attitude.yaw < 0) current_attitude.yaw += 360.0f;
-    if (current_attitude.yaw >= 360.0f) current_attitude.yaw -= 360.0f;
+    // 计算当前原始偏航角
+    float current_raw_yaw = atan2f(siny_cosp, cosy_cosp) * RAD_TO_DEG;
+    
+    // 处理偏航角连续性
+    static int yaw_initialized = 0;
+    if (!yaw_initialized) {
+        prev_yaw = current_raw_yaw;
+        yaw_continuous = current_raw_yaw;
+        yaw_initialized = 1;
+    } else {
+        // 计算角度差（处理边界跨越）
+        float yaw_diff = current_raw_yaw - prev_yaw;
+        
+        // 处理-180/+180边界跨越
+        if (yaw_diff > 180.0f) yaw_diff -= 360.0f;
+        if (yaw_diff < -180.0f) yaw_diff += 360.0f;
+        
+        // 平滑处理大的变化
+        if (fabsf(yaw_diff) > 20.0f) {
+            yaw_diff = yaw_diff * 0.2f; // 减缓大的变化
+        }
+        
+        // 更新连续偏航角
+        yaw_continuous += yaw_diff;
+        prev_yaw = current_raw_yaw;
+    }
+    
+    // 使用连续偏航角，不做范围限制
+    current_attitude.yaw = yaw_continuous;
     
     // 更新高度
     current_attitude.altitude = baro_alt;
@@ -147,6 +199,16 @@ void fusion_update(float acc[3], float gyro[3], float mag[3], float baro_alt, fl
     // 计算置信度
     float gravity_error = fabsf(acc_magnitude - 9.81f) / 9.81f;
     current_attitude.confidence = 1.0f - fminf(gravity_error, 1.0f);
+    
+    // 更新调试信息，显示连续偏航角和映射到0-360范围的偏航角
+    char yaw_info[50];
+    float mapped_yaw = fmodf(yaw_continuous + 3600.0f, 360.0f); // 确保为正数后取模
+    sprintf(yaw_info, "Yaw: %.1f (%.1f)", yaw_continuous, mapped_yaw);
+    
+    // 如果调试信息中没有特殊信息，则显示偏航角信息
+    if (strstr(debug_info, "disturbance") == NULL) {
+        strcpy(debug_info, yaw_info);
+    }
 }
 
 // 获取当前姿态
@@ -360,4 +422,21 @@ static float invSqrt(float x)
     y = y * (1.5f - (halfx * y * y));
     y = y * (1.5f - (halfx * y * y));
     return y;
+}
+
+
+// 获取原始偏航角（0-360范围）
+float fusion_get_raw_yaw(void)
+{
+    float raw_yaw = prev_yaw;
+    // 确保范围在0-360
+    while (raw_yaw < 0.0f) raw_yaw += 360.0f;
+    while (raw_yaw >= 360.0f) raw_yaw -= 360.0f;
+    return raw_yaw;
+}
+
+// 获取连续偏航角（不限范围）
+float fusion_get_continuous_yaw(void)
+{
+    return yaw_continuous;
 }

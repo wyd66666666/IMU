@@ -36,4 +36,12 @@ void fusion_use_magnetometer(int enable);
 // 获取调试信息
 const char* fusion_get_debug_info(void);
 
+// 获取原始偏航角（0-360范围）
+float fusion_get_raw_yaw(void);
+
+// 获取连续偏航角（不限范围）
+float fusion_get_continuous_yaw(void);
 #endif /* FUSION_FILTER_H */
+
+
+

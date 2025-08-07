@@ -58,8 +58,7 @@
 #define MAG_FILTER 0.01f    // 磁力计滤波（非常强）
 #define BARO_FILTER 0.01f   // 气压计滤波（很强）
 
-// 校准采样数
-#define GYRO_CALIB_SAMPLES 1500  // 增加陀螺仪校准样本数
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -751,3 +750,7 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
+
+
+

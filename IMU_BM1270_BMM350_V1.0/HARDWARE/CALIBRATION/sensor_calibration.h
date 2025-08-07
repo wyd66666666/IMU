@@ -22,7 +22,7 @@
 
 /* Sampling configuration */
 #define ACCEL_CALIB_SAMPLES         200
-#define GYRO_CALIB_SAMPLES          1000
+#define GYRO_CALIB_SAMPLES          1500       //校准采样数
 #define MAG_CALIB_SAMPLES           3000
 #define BARO_CALIB_SAMPLES          100
 
@@ -284,3 +284,6 @@ float calib_get_sea_level_pressure(void);
 float calib_get_altitude_offset(void);
 
 #endif /* SENSOR_CALIBRATION_H */
+
+
+
